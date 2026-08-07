@@ -424,3 +424,35 @@ margin-bottom:10px;
  .hero, .about, .dashboard {
      padding-top: 100px;
  }
+.socials{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.socials a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px 20px;
+    border:2px solid #00eaff;
+    border-radius:50px;
+    text-decoration:none;
+    color:#00eaff;
+    background:rgba(255,255,255,.05);
+    transition:.3s;
+    box-shadow:0 0 15px rgba(0,234,255,.3);
+}
+
+.socials a:hover{
+    background:#00eaff;
+    color:#050816;
+    box-shadow:0 0 30px #00eaff;
+    transform:translateY(-3px);
+}
+
+.socials i{
+    font-size:20px;
+}
