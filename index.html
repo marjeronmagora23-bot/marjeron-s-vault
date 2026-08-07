@@ -1,97 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Marjeron's Vault</title>
-
     <link rel="stylesheet" href="style.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<div id="loader">
+    <!-- Loading Screen -->
+    <div id="loader">
+        <h1>💾 Marjeron's Vault</h1>
+        <p id="loadingText">Initializing...</p>
+    </div>
 
-    <h1>💾 Marjeron's Vault</h1>
-
-    <p id="loadingText">Initializing...</p>
-
-</div>
-
+    <!-- Animated Background -->
     <div id="particles"></div>
-<header>
 
-<nav class="navbar">
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">💾 Marjeron's Vault</div>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="dashboard.html">Vault</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<div class="logo">
-💾 Marjeron's Vault
-</div>
-
-<ul>
-
-<li><a href="index.html">Home</a></li>
-
-<li><a href="dashboard.html">Vault</a></li>
-
-</ul>
-
-</nav>
-
-</header>
+    <!-- Hero Section -->
     <section class="hero">
-
-        <h1 class="title">
-            💾 Marjeron's Vault
-        </h1>
-
+        <h1 class="title">💾 Marjeron's Vault</h1>
         <p class="subtitle">
             Some memories fade.<br>
             The important ones stay here forever.
         </p>
-
-        <a href="dashboard.html" class="enter-btn">
-    ENTER THE VAULT
-</a>
-
+        <a href="dashboard.html" class="enter-btn">ENTER THE VAULT</a>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="profile-card">
+            <div class="profile-image">
+                <img src="images/myphoto.jpg" alt="Marjeron">
+            </div>
+            <h2>Marjeron</h2>
+            <p class="role">💻 BSIT Student</p>
+            <p class="status">"Trying to debug my code and my life one line at a time."</p>
+            <div class="socials">
+                <a href="https://www.facebook.com/share/1BxNfnULBo/" target="_blank">📘 Facebook</a>
+                <a href="https://www.tiktok.com/@jeeeeeeeer22?_r=1&_t=ZS-98gR2wB2o3b" target="_blank">🎵 TikTok</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📚 FEATURED MEMORIES -->
+    <section class="memories">
+        <div class="memories-header">
+            <h2>📚 Featured Memories</h2>
+            <p>My favorite moments, kept safe forever.</p>
+        </div>
+        <div class="memories-grid">
+            <!-- 1. YOUR PHOTO -->
+            <div class="memory-card">
+                <img src="images/me.jpg" alt="Me">
+                <div class="memory-info">
+                    <h4>Just Me</h4>
+                    <p>Being my own favorite company ✨</p>
+                </div>
+            </div>
+            <!-- 2. WITH FRIENDS -->
+            <div class="memory-card">
+                <img src="images/friends.jpg" alt="With Friends">
+                <div class="memory-info">
+                    <h4>My People</h4>
+                    <p>Laughs & memories with the crew 🤝</p>
+                </div>
+            </div>
+            <!-- 3. SPECIAL PERSON -->
+            <div class="memory-card special">
+                <img src="images/special.jpg" alt="Someone Special">
+                <div class="memory-info">
+                    <h4>💫 Someone Special</h4>
+                    <p>The one who makes days brighter 💙</p>
+                </div>
+            </div>
+            <!-- 4. RANDOM MEMORY 1 -->
+            <div class="memory-card">
+                <img src="images/memory1.jpg" alt="Memory">
+                <div class="memory-info">
+                    <h4>Caught in Time</h4>
+                    <p>Beautiful random moments 📸</p>
+                </div>
+            </div>
+            <!-- 5. RANDOM MEMORY 2 -->
+            <div class="memory-card">
+                <img src="images/memory2.jpg" alt="Memory">
+                <div class="memory-info">
+                    <h4>Little Joys</h4>
+                    <p>Small things that matter 💫</p>
+                </div>
+            </div>
+            <!-- 6. RANDOM MEMORY 3 -->
+            <div class="memory-card">
+                <img src="images/memory3.jpg" alt="Memory">
+                <div class="memory-info">
+                    <h4>Forever Kept</h4>
+                    <p>Moments I never want to forget 💾</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2026 Marjeron's Vault — Built with 💙 & lots of ☕</p>
+    </footer>
+
     <script src="script.js"></script>
-</section>
-
-<section id="about" class="about">
-
-    <div class="profile-card">
-<div class="profile-image">
-    <img src="myphoto.jpg" alt="Marjeron">
-</div>
-
-        <h2>Marjeron</h2>
-
-        <p class="role">💻 BSIT Student</p>
-
-        <p class="status">
-            "Trying to debug my code and my life one line at a time."
-        </p>
-
-        <div class="socials">
-
-    <a href="https://www.facebook.com/share/1BxNfnULBo/" target="_blank">
-        📘 Facebook
-    </a>
-
-    <a href="https://www.tiktok.com/@jeeeeeeeer22?_r=1&_t=ZS-98gR2wB2o3b" target="_blank">
-        🎵 TikTok
-    </a>
-
-</div>
-
-</section>
-
-<script src="script.js"></script>
-
 </body>
 </html>
