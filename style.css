@@ -595,3 +595,15 @@ margin-bottom:10px;
         transform:translateY(0);
     }
 }
+/* Reveal Animation */
+
+.reveal{
+    opacity:0;
+    transform:translateY(50px);
+    transition:all .8s ease;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
