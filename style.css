@@ -571,3 +571,27 @@ margin-bottom:10px;
     font-style:italic;
     line-height:1.8;
 }
+/* HERO CARD */
+
+.hero-card{
+    max-width:700px;
+    width:100%;
+    padding:40px 30px;
+    border-radius:30px;
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(0,234,255,.25);
+    box-shadow:0 0 35px rgba(0,234,255,.15);
+    animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
