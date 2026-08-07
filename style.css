@@ -471,3 +471,14 @@ margin-bottom:10px;
     transform:scale(1.05);
     box-shadow:0 0 45px #00eaff;
 }
+.live-info{
+    margin:20px 0;
+    text-align:center;
+}
+
+.live-info p{
+    color:#00eaff;
+    font-size:1rem;
+    margin:5px 0;
+    text-shadow:0 0 10px #00eaff;
+}
