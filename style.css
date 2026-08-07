@@ -375,3 +375,52 @@ color:#00eaff;
 margin-bottom:10px;
 
 }
+/* --- NAVBAR --- */
+ .navbar {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     padding: 18px 40px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     background: rgba(5, 8, 22, 0.85);
+     backdrop-filter: blur(12px);
+     border-bottom: 1px solid rgba(0, 234, 255, 0.15);
+     z-index: 999;
+ }
+ .navbar .logo {
+     font-size: 1.1rem;
+     font-weight: 700;
+     color: #00eaff;
+ }
+ .navbar ul {
+     display: flex;
+     gap: 30px;
+     list-style: none;
+ }
+ .navbar a {
+     color: #fff;
+     text-decoration: none;
+     font-weight: 500;
+     transition: 0.3s;
+ }
+ .navbar a:hover,
+ .navbar a.active {
+     color: #00eaff;
+     text-shadow: 0 0 8px #00eaff;
+ }
+ /* --- FOOTER --- */
+ .footer {
+     text-align: center;
+     padding: 30px 20px;
+     border-top: 1px solid rgba(0, 234, 255, 0.1);
+     color: #777;
+     font-size: 0.95rem;
+     margin-top: 60px;
+ }
+ /* Offset content for fixed navbar */
+ .hero, .about, .dashboard {
+     padding-top: 100px;
+ }
