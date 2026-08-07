@@ -79,3 +79,24 @@ function updateClock(){
 setInterval(updateClock,1000);
 
 updateClock();
+function revealSections(){
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    reveals.forEach(section => {
+
+        const windowHeight = window.innerHeight;
+
+        const top = section.getBoundingClientRect().top;
+
+        if(top < windowHeight - 100){
+            section.classList.add("active");
+        }
+
+    });
+
+}
+
+window.addEventListener("scroll", revealSections);
+
+revealSections();
