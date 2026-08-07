@@ -1,0 +1,124 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#050816;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* Animated Background */
+
+#particles{
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 20%,rgba(0,234,255,.12),transparent 25%),
+    radial-gradient(circle at 80% 30%,rgba(153,0,255,.10),transparent 30%),
+    radial-gradient(circle at 50% 80%,rgba(0,234,255,.08),transparent 35%);
+    animation:bgMove 12s linear infinite alternate;
+    z-index:-1;
+}
+
+@keyframes bgMove{
+    from{
+        transform:scale(1) translateY(0);
+    }
+    to{
+        transform:scale(1.1) translateY(-30px);
+    }
+}
+
+/* Hero */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+}
+
+/* Title */
+
+.title{
+    font-size:clamp(2.5rem,7vw,5rem);
+    color:#00eaff;
+    text-shadow:
+        0 0 10px #00eaff,
+        0 0 20px #00eaff,
+        0 0 40px #00eaff;
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{
+        text-shadow:
+        0 0 10px #00eaff,
+        0 0 20px #00eaff;
+    }
+
+    to{
+        text-shadow:
+        0 0 20px #00eaff,
+        0 0 40px #00eaff,
+        0 0 70px #00eaff;
+    }
+}
+
+/* Subtitle */
+
+.subtitle{
+    margin-top:20px;
+    max-width:650px;
+    color:#d7faff;
+    font-size:1.15rem;
+    line-height:1.8;
+}
+
+/* Button */
+
+.enter-btn{
+    margin-top:40px;
+    padding:16px 38px;
+    border:2px solid #00eaff;
+    border-radius:50px;
+    color:#00eaff;
+    text-decoration:none;
+    font-weight:700;
+    letter-spacing:2px;
+    transition:.35s;
+    box-shadow:0 0 20px rgba(0,234,255,.4);
+}
+
+.enter-btn:hover{
+    background:#00eaff;
+    color:#050816;
+    box-shadow:0 0 35px #00eaff;
+    transform:translateY(-5px);
+}
+
+/* Desktop */
+
+@media(min-width:900px){
+
+.hero{
+    padding:60px;
+}
+
+.subtitle{
+    font-size:1.3rem;
+}
+
+}
