@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,37 +75,60 @@
         </div>
 
 
-        <div class="video-grid">
+        <!-- VIDEO PLAYER -->
+
+        <div class="memory-video-card">
+
+            <div class="memory-video">
+
+                <video
+                    id="memoryVideo"
+                    controls
+                    playsinline
+                    preload="metadata">
+
+                    <source src="videos/memory1.mp4" type="video/mp4">
+
+                    Your browser does not support video playback.
+
+                </video>
 
 
-            <!-- VIDEO 1 -->
+                <!-- Right-side buttons -->
 
-            <div class="video-card">
+                <div class="video-actions">
 
-                <div class="video-container">
+                    <button type="button" id="likeVideo">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>0</span>
+                    </button>
 
-                    <div class="video-placeholder">
+                    <button type="button">
+                        <i class="fa-solid fa-comment"></i>
+                        <span>0</span>
+                    </button>
 
-                        <i class="fa-solid fa-video"></i>
-
-                        <h3>No video yet</h3>
-
-                        <p>Add your first memory video.</p>
-
-                    </div>
+                    <button type="button" id="shareVideo">
+                        <i class="fa-solid fa-share"></i>
+                        <span>Share</span>
+                    </button>
 
                 </div>
 
-                <div class="video-info">
+
+                <!-- Video information -->
+
+                <div class="video-caption">
 
                     <h3>My First Memory</h3>
 
-                    <p>🎥 Memory video</p>
+                    <p>
+                        🎥 A memory worth keeping forever.
+                    </p>
 
                 </div>
 
             </div>
-
 
         </div>
 
@@ -123,6 +145,57 @@
 
 
     <script src="script.js"></script>
+
+    <script>
+
+        // Like button
+
+        const likeButton = document.getElementById("likeVideo");
+
+        if (likeButton) {
+
+            let likes = 0;
+
+            likeButton.addEventListener("click", function () {
+
+                likes++;
+
+                this.classList.add("liked");
+
+                this.querySelector("span").textContent = likes;
+
+            });
+
+        }
+
+
+        // Share button
+
+        const shareButton = document.getElementById("shareVideo");
+
+        if (shareButton) {
+
+            shareButton.addEventListener("click", async function () {
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+                    alert("Video page link copied!");
+
+                } catch (error) {
+
+                    alert("Copy this page link to share the memory.");
+
+                }
+
+            });
+
+        }
+
+    </script>
 
 </body>
 
