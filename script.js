@@ -100,3 +100,103 @@ function revealSections(){
 window.addEventListener("scroll", revealSections);
 
 revealSections();
+// =========================
+// GALLERY FILTERS
+// =========================
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const galleryItems = document.querySelectorAll(".gallery-item");
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        galleryItems.forEach(item => {
+
+            const category = item.dataset.category;
+
+            if (filter === "all" || category === filter) {
+
+                item.style.display = "block";
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+});
+
+
+// =========================
+// FULLSCREEN PHOTO VIEWER
+// =========================
+
+const photoViewer = document.getElementById("photoViewer");
+const viewerImage = document.getElementById("viewerImage");
+const closeViewer = document.getElementById("closeViewer");
+
+const galleryImages = document.querySelectorAll(".gallery-item img");
+
+galleryImages.forEach(image => {
+
+    image.addEventListener("click", () => {
+
+        viewerImage.src = image.src;
+
+        photoViewer.classList.add("active");
+
+    });
+
+});
+
+
+if (closeViewer) {
+
+    closeViewer.addEventListener("click", () => {
+
+        photoViewer.classList.remove("active");
+
+    });
+
+}
+
+
+if (photoViewer) {
+
+    photoViewer.addEventListener("click", (event) => {
+
+        if (event.target === photoViewer) {
+
+            photoViewer.classList.remove("active");
+
+        }
+
+    });
+
+}
+
+
+// Close with ESC
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape" && photoViewer) {
+
+        photoViewer.classList.remove("active");
+
+    }
+
+});
