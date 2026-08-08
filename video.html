@@ -152,22 +152,34 @@
 
         const likeButton = document.getElementById("likeVideo");
 
-        if (likeButton) {
+if (likeButton) {
 
-            let likes = 0;
+    let liked = false;
+    let likes = 0;
 
-            likeButton.addEventListener("click", function () {
+    likeButton.addEventListener("click", function () {
 
-                likes++;
+        liked = !liked;
 
-                this.classList.add("liked");
+        if (liked) {
 
-                this.querySelector("span").textContent = likes;
+            likes = 1;
 
-            });
+            this.classList.add("liked");
+
+        } else {
+
+            likes = 0;
+
+            this.classList.remove("liked");
 
         }
 
+        this.querySelector("span").textContent = likes;
+
+    });
+
+}
 
         // Share button
 
