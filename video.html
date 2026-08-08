@@ -94,71 +94,113 @@
                 </video>
 
 
-                <!-- Right-side buttons -->
+                <!-- VIDEO BUTTONS -->
 
                 <div class="video-actions">
 
+                    <!-- LIKE -->
+
                     <button type="button" id="likeVideo">
+
                         <i class="fa-solid fa-heart"></i>
+
                         <span>0</span>
+
                     </button>
 
-                    <button type="button">
-                        <i class="fa-solid 
+
+                    <!-- COMMENTS -->
 
                     <button type="button" id="commentVideo">
-    <i class="fa-solid fa-comment"></i>
-    <span>0</span>
-</button>
+
+                        <i class="fa-solid fa-comment"></i>
+
+                        <span>0</span>
+
+                    </button>
+
+
+                    <!-- SHARE -->
+
+                    <button type="button" id="shareVideo">
+
+                        <i class="fa-solid fa-share"></i>
+
+                        <span>Share</span>
+
+                    </button>
 
                 </div>
 
 
-                <!-- Video information -->
+                <!-- VIDEO INFORMATION -->
 
                 <div class="video-caption">
 
-                    <h3>My First Memory</h3>
+                    <h3>
+                        My First Memory
+                    </h3>
 
                     <p>
                         🎥 A memory worth keeping forever.
                     </p>
 
                 </div>
-<div id="commentBox" class="comment-box">
 
-    <div class="comment-header">
-        <h3>💬 Comments</h3>
 
-        <button type="button" id="closeComments">
-            ✕
-        </button>
-    </div>
+                <!-- COMMENT BOX -->
 
-    <div id="commentsList" class="comments-list">
+                <div id="commentBox" class="comment-box">
 
-        <p class="no-comments">
-            No comments yet.
-        </p>
+                    <div class="comment-header">
 
-    </div>
+                        <h3>
+                            💬 Comments
+                        </h3>
 
-    <div class="comment-input">
+                        <button
+                            type="button"
+                            id="closeComments">
 
-        <input
-            type="text"
-            id="commentInput"
-            placeholder="Write a comment..."
-            maxlength="200"
-        >
+                            ✕
 
-        <button type="button" id="sendComment">
-            <i class="fa-solid fa-paper-plane"></i>
-        </button>
+                        </button>
 
-    </div>
+                    </div>
 
-</div>
+
+                    <div
+                        id="commentsList"
+                        class="comments-list">
+
+                        <p class="no-comments">
+                            No comments yet.
+                        </p>
+
+                    </div>
+
+
+                    <div class="comment-input">
+
+                        <input
+                            type="text"
+                            id="commentInput"
+                            placeholder="Write a comment..."
+                            maxlength="200"
+                        >
+
+                        <button
+                            type="button"
+                            id="sendComment">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -168,100 +210,140 @@
 
     <footer>
 
-        <p>💾 Marjeron's Vault</p>
+        <p>
+            💾 Marjeron's Vault
+        </p>
 
-        <p>Every video has a story.</p>
+        <p>
+            Every video has a story.
+        </p>
 
     </footer>
 
 
     <script src="script.js"></script>
 
+
     <script>
 
-        // Like button
+        // =========================
+        // LIKE BUTTON
+        // =========================
 
-        const likeButton = document.getElementById("likeVideo");
+        const likeButton =
+            document.getElementById("likeVideo");
 
-if (likeButton) {
+        if (likeButton) {
 
-    let liked = false;
-    let likes = 0;
+            let liked = false;
 
-    likeButton.addEventListener("click", function () {
+            let likes = 0;
 
-        liked = !liked;
+            likeButton.addEventListener(
+                "click",
+                function () {
 
-        if (liked) {
+                    liked = !liked;
 
-            likes = 1;
+                    if (liked) {
 
-            this.classList.add("liked");
+                        likes = 1;
 
-        } else {
+                        this.classList.add("liked");
 
-            likes = 0;
+                    } else {
 
-            this.classList.remove("liked");
+                        likes = 0;
+
+                        this.classList.remove("liked");
+
+                    }
+
+                    this.querySelector("span")
+                        .textContent = likes;
+
+                }
+            );
 
         }
 
-        this.querySelector("span").textContent = likes;
 
-    });
+        // =========================
+        // COMMENT BOX
+        // =========================
 
-}
-// =========================
-// COMMENT BOX
-// =========================
+        const commentButton =
+            document.getElementById("commentVideo");
 
-const commentButton = document.getElementById("commentVideo");
-const commentBox = document.getElementById("commentBox");
-const closeComments = document.getElementById("closeComments");
+        const commentBox =
+            document.getElementById("commentBox");
 
-if (commentButton && commentBox) {
+        const closeComments =
+            document.getElementById("closeComments");
 
-    commentButton.addEventListener("click", function () {
 
-        commentBox.classList.toggle("active");
+        if (commentButton && commentBox) {
 
-    });
+            commentButton.addEventListener(
+                "click",
+                function () {
 
-}
+                    commentBox.classList.toggle("active");
 
-if (closeComments && commentBox) {
+                }
+            );
 
-    closeComments.addEventListener("click", function () {
+        }
 
-        commentBox.classList.remove("active");
 
-    });
+        if (closeComments && commentBox) {
 
-}
+            closeComments.addEventListener(
+                "click",
+                function () {
 
-        // Share button
+                    commentBox.classList.remove("active");
 
-        const shareButton = document.getElementById("shareVideo");
+                }
+            );
+
+        }
+
+
+        // =========================
+        // SHARE BUTTON
+        // =========================
+
+        const shareButton =
+            document.getElementById("shareVideo");
+
 
         if (shareButton) {
 
-            shareButton.addEventListener("click", async function () {
+            shareButton.addEventListener(
+                "click",
+                async function () {
 
-                try {
+                    try {
 
-                    await navigator.clipboard.writeText(
-                        window.location.href
-                    );
+                        await navigator.clipboard.writeText(
+                            window.location.href
+                        );
 
-                    alert("Video page link copied!");
+                        alert(
+                            "Video page link copied!"
+                        );
 
-                } catch (error) {
+                    } catch (error) {
 
-                    alert("Copy this page link to share the memory.");
+                        alert(
+                            "Copy this page link to share the memory."
+                        );
+
+                    }
 
                 }
-
-            });
+            );
 
         }
 
