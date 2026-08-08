@@ -213,6 +213,33 @@ if (likeButton) {
     });
 
 }
+// =========================
+// COMMENT BOX
+// =========================
+
+const commentButton = document.getElementById("commentVideo");
+const commentBox = document.getElementById("commentBox");
+const closeComments = document.getElementById("closeComments");
+
+if (commentButton && commentBox) {
+
+    commentButton.addEventListener("click", function () {
+
+        commentBox.classList.toggle("active");
+
+    });
+
+}
+
+if (closeComments && commentBox) {
+
+    closeComments.addEventListener("click", function () {
+
+        commentBox.classList.remove("active");
+
+    });
+
+}
 
         // Share button
 
