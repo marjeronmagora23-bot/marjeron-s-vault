@@ -175,8 +175,7 @@
     </footer>
 
 
-    <script src="script.js"></script>
-<!-- Fullscreen Photo Viewer -->
+    <!-- Fullscreen Photo Viewer -->
 
 <div id="photoViewer" class="photo-viewer">
 
@@ -188,7 +187,116 @@
 
 </div>
 
-<script src="script.js"></script>
+
+<!-- Gallery JavaScript -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // =========================
+    // GALLERY FILTERS
+    // =========================
+
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    filterButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const filter = button.getAttribute("data-filter");
+
+            // Active button
+            filterButtons.forEach(function (btn) {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+
+            // Show / hide gallery items
+            galleryItems.forEach(function (item) {
+
+                const category = item.getAttribute("data-category");
+
+                if (filter === "all" || category === filter) {
+
+                    item.style.display = "";
+
+                } else {
+
+                    item.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+    });
+
+
+    // =========================
+    // FULLSCREEN PHOTO VIEWER
+    // =========================
+
+    const photoViewer = document.getElementById("photoViewer");
+    const viewerImage = document.getElementById("viewerImage");
+    const closeViewer = document.getElementById("closeViewer");
+
+    const galleryImages = document.querySelectorAll(".gallery-item img");
+
+
+    galleryImages.forEach(function (image) {
+
+        image.addEventListener("click", function () {
+
+            viewerImage.src = image.src;
+
+            photoViewer.classList.add("active");
+
+        });
+
+    });
+
+
+    // Close button
+
+    closeViewer.addEventListener("click", function () {
+
+        photoViewer.classList.remove("active");
+
+    });
+
+
+    // Click outside photo
+
+    photoViewer.addEventListener("click", function (event) {
+
+        if (event.target === photoViewer) {
+
+            photoViewer.classList.remove("active");
+
+        }
+
+    });
+
+
+    // ESC key
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            photoViewer.classList.remove("active");
+
+        }
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
