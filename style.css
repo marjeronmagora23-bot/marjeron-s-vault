@@ -607,3 +607,196 @@ margin-bottom:10px;
     opacity:1;
     transform:translateY(0);
 }
+/* =========================
+   VAULT DASHBOARD
+========================= */
+
+.dashboard{
+    max-width:1200px;
+    margin:0 auto;
+    padding:100px 25px 60px;
+}
+
+.dashboard-header{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.dashboard-header h1{
+    font-size:clamp(2rem,5vw,4rem);
+    margin:10px 0;
+}
+
+.dashboard-header p{
+    color:#b8c7d9;
+}
+
+.dashboard-label{
+    color:#00eaff !important;
+    font-weight:600;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+
+/* Cards */
+
+.vault-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.vault-card{
+    position:relative;
+    padding:30px;
+    min-height:220px;
+
+    text-decoration:none;
+    color:white;
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(0,234,255,.2);
+    border-radius:24px;
+
+    backdrop-filter:blur(15px);
+
+    transition:.35s ease;
+}
+
+.vault-card:hover{
+    transform:translateY(-8px);
+
+    border-color:#00eaff;
+
+    box-shadow:
+        0 0 25px rgba(0,234,255,.2);
+}
+
+.vault-icon{
+    width:55px;
+    height:55px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:16px;
+
+    color:#00eaff;
+
+    background:rgba(0,234,255,.08);
+
+    font-size:22px;
+
+    margin-bottom:20px;
+}
+
+.vault-card h2{
+    margin:0 0 10px;
+}
+
+.vault-card p{
+    color:#aebdce;
+    line-height:1.6;
+}
+
+.vault-card span{
+    display:block;
+
+    margin-top:20px;
+
+    color:#00eaff;
+    font-weight:600;
+}
+
+
+/* About */
+
+.dashboard-about{
+    margin-top:70px;
+
+    display:flex;
+    align-items:center;
+    gap:40px;
+
+    padding:35px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(0,234,255,.2);
+
+    backdrop-filter:blur(15px);
+}
+
+.dashboard-about img{
+    width:150px;
+    height:150px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:3px solid #00eaff;
+
+    box-shadow:0 0 25px rgba(0,234,255,.35);
+}
+
+.dashboard-about h2{
+    font-size:2rem;
+    margin:8px 0;
+}
+
+.dashboard-about p{
+    color:#b8c7d9;
+    line-height:1.7;
+}
+
+
+/* Footer */
+
+footer{
+    text-align:center;
+    padding:40px 20px;
+
+    color:#718096;
+}
+
+footer p:first-child{
+    color:#00eaff;
+    font-weight:600;
+}
+
+
+/* Mobile */
+
+@media(max-width:800px){
+
+    .vault-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .dashboard{
+        padding:80px 15px 40px;
+    }
+
+    .vault-grid{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard-about{
+        flex-direction:column;
+        text-align:center;
+        padding:25px;
+    }
+
+    .dashboard-about .socials{
+        justify-content:center;
+    }
+
+}
