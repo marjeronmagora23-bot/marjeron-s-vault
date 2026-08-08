@@ -1471,3 +1471,30 @@ footer p:first-child{
     }
 
 }
+/* =========================
+   COMMENT BOX FIX
+========================= */
+
+.memory-video {
+    position: relative;
+}
+
+.comment-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 55%;
+
+    display: none;
+    flex-direction: column;
+
+    background: rgba(5, 8, 13, 0.98);
+
+    z-index: 100;
+}
+
+.comment-box.active {
+    display: flex !important;
+}
