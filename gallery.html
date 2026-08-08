@@ -1,1 +1,182 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>📸 Gallery | Marjeron's Vault</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+
+    <div id="particles"></div>
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                💾 Marjeron's Vault
+            </div>
+
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fa-solid fa-lock"></i>
+                        Vault
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <main class="gallery-page">
+
+        <div class="gallery-header">
+
+            <p class="dashboard-label">
+                📂 MEMORY ARCHIVE
+            </p>
+
+            <h1>My Gallery</h1>
+
+            <p>
+                A collection of moments worth keeping.
+            </p>
+
+        </div>
+
+
+        <!-- Categories -->
+
+        <div class="gallery-filters">
+
+            <button class="filter-btn active" data-filter="all">
+                All
+            </button>
+
+            <button class="filter-btn" data-filter="me">
+                📸 Me
+            </button>
+
+            <button class="filter-btn" data-filter="friends">
+                👥 Friends
+            </button>
+
+            <button class="filter-btn" data-filter="special">
+                ❤️ Special Someone
+            </button>
+
+            <button class="filter-btn" data-filter="random">
+                🌄 Random
+            </button>
+
+        </div>
+
+
+        <!-- Gallery -->
+
+        <div class="gallery-grid">
+
+
+            <!-- PHOTO -->
+
+            <div class="gallery-item" data-category="me">
+
+                <img src="myphoto.jpg" alt="My photo">
+
+                <div class="gallery-overlay">
+
+                    <h3>Me</h3>
+
+                    <p>A moment worth remembering.</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FRIEND PHOTO -->
+
+            <div class="gallery-item" data-category="friends">
+
+                <div class="empty-photo">
+
+                    <i class="fa-solid fa-image"></i>
+
+                    <p>Add a friend photo</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- SPECIAL SOMEONE -->
+
+            <div class="gallery-item" data-category="special">
+
+                <div class="empty-photo">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    <p>Add a special memory</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- RANDOM -->
+
+            <div class="gallery-item" data-category="random">
+
+                <div class="empty-photo">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                    <p>Add a random moment</p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        <p>💾 Marjeron's Vault</p>
+
+        <p>Every picture has a story.</p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
