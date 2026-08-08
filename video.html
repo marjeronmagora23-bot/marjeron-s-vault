@@ -309,7 +309,56 @@
 
         }
 
+// =========================
+// SEND COMMENT
+// =========================
 
+const commentInput =
+    document.getElementById("commentInput");
+
+const sendComment =
+    document.getElementById("sendComment");
+
+const commentsList =
+    document.getElementById("commentsList");
+
+
+if (sendComment && commentInput && commentsList) {
+
+    sendComment.addEventListener("click", function () {
+
+        const text = commentInput.value.trim();
+
+        if (text === "") {
+            return;
+        }
+
+        const comment = document.createElement("div");
+
+        comment.className = "comment-item";
+
+        comment.innerHTML = `
+            <strong>Guest</strong>
+            <p>${text}</p>
+        `;
+
+        const noComments =
+            commentsList.querySelector(".no-comments");
+
+        if (noComments) {
+            noComments.remove();
+        }
+
+        commentsList.appendChild(comment);
+
+        commentInput.value = "";
+
+        commentsList.scrollTop =
+            commentsList.scrollHeight;
+
+    });
+
+}
         // =========================
         // SHARE BUTTON
         // =========================
