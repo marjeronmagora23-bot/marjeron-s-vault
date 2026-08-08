@@ -1498,3 +1498,32 @@ footer p:first-child{
 .comment-box.active {
     display: flex !important;
 }
+/* =========================
+   COMMENTS
+========================= */
+
+.comment-item {
+    padding: 10px 12px;
+    margin-bottom: 10px;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(0, 234, 255, 0.12);
+}
+
+.comment-item strong {
+    color: #00eaff;
+    font-size: 13px;
+}
+
+.comment-item p {
+    margin: 4px 0 0;
+
+    color: #e0e7ef;
+
+    font-size: 13px;
+
+    word-break: break-word;
+}
