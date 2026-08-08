@@ -1,17 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+
+    <title>💾 Vault Dashboard | Marjeron's Vault</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
+
 <body>
 
-<h1>💾 Vault Dashboard</h1>
+    <!-- Background -->
+    <div id="particles"></div>
 
-<p>Welcome to Marjeron's Vault</p>
+    <!-- Navigation -->
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                💾 Marjeron's Vault
+            </div>
+
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <!-- Dashboard -->
+    <main class="dashboard">
+
+        <div class="dashboard-header">
+
+            <p class="dashboard-label">
+                🔐 ACCESS GRANTED
+            </p>
+
+            <h1>
+                Welcome to the Vault
+            </h1>
+
+            <p>
+                Explore the memories, people, and moments stored here.
+            </p>
+
+        </div>
+
+
+        <!-- Dashboard Cards -->
+        <div class="vault-grid">
+
+            <!-- Gallery -->
+            <a href="#" class="vault-card">
+
+                <div class="vault-icon">
+                    <i class="fa-solid fa-images"></i>
+                </div>
+
+                <h2>Gallery</h2>
+
+                <p>
+                    Photos and memories collected over time.
+                </p>
+
+                <span>
+                    Open Archive →
+                </span>
+
+            </a>
+
+
+            <!-- Friends -->
+            <a href="#" class="vault-card">
+
+                <div class="vault-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <h2>Friends</h2>
+
+                <p>
+                    People who became part of the story.
+                </p>
+
+                <span>
+                    Meet Them →
+                </span>
+
+            </a>
+
+
+            <!-- Videos -->
+            <a href="#" class="vault-card">
+
+                <div class="vault-icon">
+                    <i class="fa-solid fa-video"></i>
+                </div>
+
+                <h2>Videos</h2>
+
+                <p>
+                    Moments captured in motion.
+                </p>
+
+                <span>
+                    Watch Videos →
+                </span>
+
+            </a>
+
+
+            <!-- Thoughts -->
+            <a href="#" class="vault-card">
+
+                <div class="vault-icon">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+
+                <h2>Midnight Thoughts</h2>
+
+                <p>
+                    Thoughts, screenshots, and things worth remembering.
+                </p>
+
+                <span>
+                    Enter →
+                </span>
+
+            </a>
+
+
+            <!-- Time Capsule -->
+            <a href="#" class="vault-card">
+
+                <div class="vault-icon">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+
+                <h2>Time Capsule</h2>
+
+                <p>
+                    Messages and memories saved for the future.
+                </p>
+
+                <span>
+                    Open Capsule →
+                </span>
+
+            </a>
+
+
+            <!-- About -->
+            <a href="#about" class="vault-card">
+
+                <div class="vault-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <h2>About Me</h2>
+
+                <p>
+                    Get to know the person behind the vault.
+                </p>
+
+                <span>
+                    About Marjeron →
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- About Preview -->
+        <section id="about" class="dashboard-about">
+
+            <img src="myphoto.jpg" alt="Marjeron">
+
+            <div>
+
+                <p class="dashboard-label">
+                    👤 THE OWNER
+                </p>
+
+                <h2>Marjeron</h2>
+
+                <p>
+                    BSIT Student, future developer, and the person
+                    behind this digital memory vault.
+                </p>
+
+                <div class="socials">
+
+                    <a href="https://www.facebook.com/share/19Ey9Hd2p1/"
+                        target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                        Facebook
+                    </a>
+
+                    <a href="https://www.tiktok.com/@jeeeeeeeer22?_r=1&_t=ZS-98gsq1l7EgC"
+                        target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                        TikTok
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            💾 Marjeron's Vault
+        </p>
+
+        <p>
+            Built with memories, code, and a little bit of chaos.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
 
 </body>
+
 </html>
