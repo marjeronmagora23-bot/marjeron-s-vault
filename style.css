@@ -1156,3 +1156,93 @@ footer p:first-child{
 
 }
     
+
+/* =========================
+   MOBILE PHOTO VIEWER FIX
+========================= */
+
+.photo-viewer {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 70px 12px 25px;
+
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.94);
+
+    backdrop-filter: blur(12px);
+
+    z-index: 9999;
+}
+
+.photo-viewer.active {
+    display: flex;
+}
+
+.photo-viewer img {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    max-width: 96vw;
+    max-height: 75vh;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 30px rgba(0, 234, 255, 0.25);
+}
+
+
+/* CLOSE BUTTON */
+
+.close-viewer {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(0, 234, 255, 0.5);
+
+    background: rgba(10, 15, 31, 0.9);
+
+    color: #00eaff;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 10000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .photo-viewer img {
+
+        max-width: 96vw;
+
+        max-height: 75vh;
+
+    }
+
+}
