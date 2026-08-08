@@ -113,24 +113,22 @@ filterButtons.forEach(button => {
 
         const filter = button.dataset.filter;
 
+        // Change active button
         filterButtons.forEach(btn => {
             btn.classList.remove("active");
         });
 
         button.classList.add("active");
 
+        // Filter photos
         galleryItems.forEach(item => {
 
             const category = item.dataset.category;
 
             if (filter === "all" || category === filter) {
-
-                item.style.display = "block";
-
+                item.style.display = "";
             } else {
-
                 item.style.display = "none";
-
             }
 
         });
@@ -154,6 +152,8 @@ galleryImages.forEach(image => {
 
     image.addEventListener("click", () => {
 
+        if (!photoViewer || !viewerImage) return;
+
         viewerImage.src = image.src;
 
         photoViewer.classList.add("active");
@@ -162,6 +162,8 @@ galleryImages.forEach(image => {
 
 });
 
+
+// Close button
 
 if (closeViewer) {
 
@@ -173,6 +175,8 @@ if (closeViewer) {
 
 }
 
+
+// Click outside photo to close
 
 if (photoViewer) {
 
@@ -189,7 +193,7 @@ if (photoViewer) {
 }
 
 
-// Close with ESC
+// ESC key
 
 document.addEventListener("keydown", (event) => {
 
