@@ -239,6 +239,10 @@
         onSnapshot,
         serverTimestamp
     } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+    getAuth,
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
     // PASTE YOUR FIREBASE CONFIG HERE
     const firebaseConfig = {
@@ -257,9 +261,20 @@ const firebaseConfig = {
     };
 
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
 
-    console.log("🔥 Firebase connected!");
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+console.log("🔥 Firebase connected!");
+
+signInAnonymously(auth)
+    .then(() => {
+        console.log("👤 Anonymous user connected");
+    })
+    .catch((error) => {
+        console.error("Authentication error:", error);
+    });
 
     // We will add Likes + Comments here next.
 </script>
