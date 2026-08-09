@@ -9,16 +9,20 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet"
+    <link
+        rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 
 <body>
 
     <div id="particles"></div>
+
+    <!-- NAVIGATION -->
 
     <header>
 
@@ -58,6 +62,8 @@
     </header>
 
 
+    <!-- VIDEO PAGE -->
+
     <main class="videos-page">
 
         <div class="videos-header">
@@ -75,11 +81,13 @@
         </div>
 
 
-        <!-- VIDEO PLAYER -->
+        <!-- VIDEO CARD -->
 
         <div class="memory-video-card">
 
             <div class="memory-video">
+
+                <!-- VIDEO -->
 
                 <video
                     id="memoryVideo"
@@ -87,53 +95,54 @@
                     playsinline
                     preload="metadata">
 
-                    <source src="video1.mp4" type="video/mp4">
+                    <source
+                        src="video1.mp4"
+                        type="video/mp4">
 
                     Your browser does not support video playback.
 
                 </video>
 
 
-                <!-- VIDEO BUTTONS -->
+                <!-- ACTION BUTTONS -->
 
                 <div class="video-actions">
 
                     <!-- LIKE -->
 
-                    <button type="button" id="likeVideo">
+                    <button
+                        type="button"
+                        id="likeVideo"
+                        aria-label="Like video">
 
                         <i class="fa-solid fa-heart"></i>
 
-                        <span>0</span>
+                        <span id="likeCount">
+                            0
+                        </span>
 
                     </button>
 
 
-                    <!-- COMMENTS -->
+                    <!-- COMMENT -->
 
-                    <button type="button" id="commentVideo">
+                    <button
+                        type="button"
+                        id="commentVideo"
+                        aria-label="Comments">
 
                         <i class="fa-solid fa-comment"></i>
 
-                        <span>0</span>
-
-                    </button>
-
-
-                    <!-- SHARE -->
-
-                    <button type="button" id="shareVideo">
-
-                        <i class="fa-solid fa-share"></i>
-
-                        <span>Share</span>
+                        <span id="commentCount">
+                            0
+                        </span>
 
                     </button>
 
                 </div>
 
 
-                <!-- VIDEO INFORMATION -->
+                <!-- CAPTION -->
 
                 <div class="video-caption">
 
@@ -150,7 +159,9 @@
 
                 <!-- COMMENT BOX -->
 
-                <div id="commentBox" class="comment-box">
+                <div
+                    id="commentBox"
+                    class="comment-box">
 
                     <div class="comment-header">
 
@@ -186,12 +197,12 @@
                             type="text"
                             id="commentInput"
                             placeholder="Write a comment..."
-                            maxlength="200"
-                        >
+                            maxlength="200">
 
                         <button
                             type="button"
-                            id="sendComment">
+                            id="sendComment"
+                            aria-label="Send comment">
 
                             <i class="fa-solid fa-paper-plane"></i>
 
@@ -208,6 +219,8 @@
     </main>
 
 
+    <!-- FOOTER -->
+
     <footer>
 
         <p>
@@ -221,382 +234,479 @@
     </footer>
 
 
+    <!-- YOUR EXISTING SCRIPT -->
+
     <script src="script.js"></script>
 
-<script type="module">
 
-    // =========================
-    // FIREBASE
-    // =========================
+    <!-- FIREBASE -->
 
-    import { initializeApp }
-        from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    <script type="module">
 
-    import {
-        getFirestore,
-        doc,
-        getDoc,
-        setDoc
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-    import {
-        getAuth,
-        signInAnonymously
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
-    // =========================
-    // FIREBASE CONFIG
-    // =========================
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyCGCqg8NjUfhVFyXJh5ohH3T9a2pW5ctzI",
-        authDomain: "marjeron-portfolio.firebaseapp.com",
-        databaseURL: "https://marjeron-portfolio-default-rtdb.firebaseio.com",
-        projectId: "marjeron-portfolio",
-        storageBucket: "marjeron-portfolio.firebasestorage.app",
-        messagingSenderId: "203019659206",
-        appId: "1:203019659206:web:fee5781c524f1119efb4c7",
-        measurementId: "G-BB4NXL53YK"
-    };
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-    // =========================
-    // INITIALIZE FIREBASE
-    // =========================
-
-    const app = initializeApp(firebaseConfig);
-
-    const db = getFirestore(app);
-
-    const auth = getAuth(app);
+        import {
+            getAuth,
+            signInAnonymously
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-    console.log("🔥 Firebase connected!");
+        // ==========================================
+        // FIREBASE CONFIG
+        // ==========================================
+
+        const firebaseConfig = {
+
+            apiKey: "AIzaSyCGCqg8NjUfhVFyXJh5ohH3T9a2pW5ctzI",
+
+            authDomain:
+                "marjeron-portfolio.firebaseapp.com",
+
+            databaseURL:
+                "https://marjeron-portfolio-default-rtdb.firebaseio.com",
+
+            projectId:
+                "marjeron-portfolio",
+
+            storageBucket:
+                "marjeron-portfolio.firebasestorage.app",
+
+            messagingSenderId:
+                "203019659206",
+
+            appId:
+                "1:203019659206:web:fee5781c524f1119efb4c7",
+
+            measurementId:
+                "G-BB4NXL53YK"
+
+        };
 
 
-    // =========================
-    // ANONYMOUS LOGIN
-    // =========================
+        // ==========================================
+        // INITIALIZE FIREBASE
+        // ==========================================
 
-    signInAnonymously(auth)
-        .then(() => {
+        const app =
+            initializeApp(firebaseConfig);
 
-            console.log("👤 Anonymous user connected");
+        const db =
+            getFirestore(app);
 
-            setupLikeSystem();
-
-        })
-        .catch((error) => {
-
-            console.error(
-                "Authentication error:",
-                error
-            );
-
-        });
+        const auth =
+            getAuth(app);
 
 
-    // =========================
-    // LIKE SYSTEM
-    // =========================
-
-    async function setupLikeSystem() {
-
-        const likeButton =
-            document.getElementById("likeVideo");
-
-        if (!likeButton) return;
-
-
-        const likeCount =
-            likeButton.querySelector("span");
-
-
-        const user = auth.currentUser;
-
-        if (!user) return;
-
-
-        const likeRef = doc(
-            db,
-            "videos",
-            "video1",
-            "likes",
-            user.uid
+        console.log(
+            "🔥 Firebase connected!"
         );
 
 
-        // Check if this user already liked
+        // ==========================================
+        // ANONYMOUS LOGIN
+        // ==========================================
 
-        try {
+        signInAnonymously(auth)
 
-            const likeSnapshot =
-                await getDoc(likeRef);
+            .then(() => {
+
+                console.log(
+                    "👤 Anonymous user connected"
+                );
+
+                startLikeSystem();
+
+            })
+
+            .catch((error) => {
+
+                console.error(
+                    "Firebase authentication error:",
+                    error
+                );
+
+            });
 
 
-            if (likeSnapshot.exists()) {
+        // ==========================================
+        // LIKE SYSTEM
+        // ==========================================
 
-                likeButton.classList.add("liked");
+        async function startLikeSystem() {
 
-                likeCount.textContent = "1";
+            const likeButton =
+                document.getElementById(
+                    "likeVideo"
+                );
 
-            } else {
 
-                likeCount.textContent = "0";
+            const likeCount =
+                document.getElementById(
+                    "likeCount"
+                );
+
+
+            if (!likeButton || !likeCount) {
+
+                console.error(
+                    "Like button not found."
+                );
+
+                return;
 
             }
 
-        } catch (error) {
 
-            console.error(
-                "Could not load like:",
-                error
+            const user =
+                auth.currentUser;
+
+
+            if (!user) {
+
+                console.error(
+                    "Firebase user not found."
+                );
+
+                return;
+
+            }
+
+
+            const likeRef =
+                doc(
+                    db,
+                    "videos",
+                    "video1",
+                    "likes",
+                    user.uid
+                );
+
+
+            // --------------------------------------
+            // CHECK CURRENT LIKE
+            // --------------------------------------
+
+            try {
+
+                const snapshot =
+                    await getDoc(
+                        likeRef
+                    );
+
+
+                if (snapshot.exists()) {
+
+                    likeButton.classList.add(
+                        "liked"
+                    );
+
+                    likeCount.textContent =
+                        "1";
+
+                } else {
+
+                    likeButton.classList.remove(
+                        "liked"
+                    );
+
+                    likeCount.textContent =
+                        "0";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading like:",
+                    error
+                );
+
+            }
+
+
+            // --------------------------------------
+            // LIKE / UNLIKE
+            // --------------------------------------
+
+            likeButton.addEventListener(
+                "click",
+                async () => {
+
+                    likeButton.disabled =
+                        true;
+
+
+                    try {
+
+                        const snapshot =
+                            await getDoc(
+                                likeRef
+                            );
+
+
+                        if (snapshot.exists()) {
+
+                            // UNLIKE
+
+                            await setDoc(
+                                likeRef,
+                                {
+                                    liked: false
+                                }
+                            );
+
+
+                            likeButton.classList.remove(
+                                "liked"
+                            );
+
+
+                            likeCount.textContent =
+                                "0";
+
+
+                            console.log(
+                                "💔 Video unliked"
+                            );
+
+
+                        } else {
+
+                            // LIKE
+
+                            await setDoc(
+                                likeRef,
+                                {
+                                    liked: true,
+                                    createdAt:
+                                        new Date()
+                                }
+                            );
+
+
+                            likeButton.classList.add(
+                                "liked"
+                            );
+
+
+                            likeCount.textContent =
+                                "1";
+
+
+                            console.log(
+                                "❤️ Video liked"
+                            );
+
+                        }
+
+                    } catch (error) {
+
+                        console.error(
+                            "Like error:",
+                            error
+                        );
+
+                        alert(
+                            "Unable to save your like. Please try again."
+                        );
+
+                    }
+
+
+                    likeButton.disabled =
+                        false;
+
+                }
             );
 
         }
 
 
-        // Like / Unlike
+        // ==========================================
+        // COMMENT BOX
+        // ==========================================
 
-        likeButton.addEventListener(
-            "click",
-            async function () {
-
-                try {
-
-                    const snapshot =
-                        await getDoc(likeRef);
+        const commentButton =
+            document.getElementById(
+                "commentVideo"
+            );
 
 
-                    if (snapshot.exists()) {
-
-                        // UNLIKE
-
-                        await setDoc(
-                            likeRef,
-                            {
-                                liked: false
-                            }
-                        );
-
-                        likeButton.classList.remove(
-                            "liked"
-                        );
-
-                        likeCount.textContent = "0";
+        const commentBox =
+            document.getElementById(
+                "commentBox"
+            );
 
 
-                    } else {
+        const closeComments =
+            document.getElementById(
+                "closeComments"
+            );
 
-                        // LIKE
 
-                        await setDoc(
-                            likeRef,
-                            {
-                                liked: true,
-                                createdAt:
-                                    new Date()
-                            }
-                        );
+        if (
+            commentButton &&
+            commentBox
+        ) {
 
-                        likeButton.classList.add(
-                            "liked"
-                        );
+            commentButton.addEventListener(
+                "click",
+                () => {
 
-                        likeCount.textContent = "1";
+                    commentBox.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+
+        if (
+            closeComments &&
+            commentBox
+        ) {
+
+            closeComments.addEventListener(
+                "click",
+                () => {
+
+                    commentBox.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+
+
+        // ==========================================
+        // LOCAL COMMENTS
+        // ==========================================
+
+        const commentInput =
+            document.getElementById(
+                "commentInput"
+            );
+
+
+        const sendComment =
+            document.getElementById(
+                "sendComment"
+            );
+
+
+        const commentsList =
+            document.getElementById(
+                "commentsList"
+            );
+
+
+        if (
+            sendComment &&
+            commentInput &&
+            commentsList
+        ) {
+
+            sendComment.addEventListener(
+                "click",
+                () => {
+
+                    const text =
+                        commentInput.value.trim();
+
+
+                    if (!text) {
+
+                        return;
 
                     }
 
-                } catch (error) {
 
-                    console.error(
-                        "Like error:",
-                        error
+                    const comment =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    comment.className =
+                        "comment-item";
+
+
+                    const username =
+                        document.createElement(
+                            "strong"
+                        );
+
+
+                    username.textContent =
+                        "Guest";
+
+
+                    const message =
+                        document.createElement(
+                            "p"
+                        );
+
+
+                    message.textContent =
+                        text;
+
+
+                    comment.appendChild(
+                        username
                     );
+
+
+                    comment.appendChild(
+                        message
+                    );
+
+
+                    const noComments =
+                        commentsList.querySelector(
+                            ".no-comments"
+                        );
+
+
+                    if (noComments) {
+
+                        noComments.remove();
+
+                    }
+
+
+                    commentsList.appendChild(
+                        comment
+                    );
+
+
+                    commentInput.value =
+                        "";
+
+
+                    commentsList.scrollTop =
+                        commentsList.scrollHeight;
 
                 }
+            );
 
-            }
-        );
+        }
 
-    }
-
-
-    // =========================
-    // COMMENT BOX
-    // =========================
-
-    const commentButton =
-        document.getElementById("commentVideo");
-
-    const commentBox =
-        document.getElementById("commentBox");
-
-    const closeComments =
-        document.getElementById("closeComments");
-
-
-    if (commentButton && commentBox) {
-
-        commentButton.addEventListener(
-            "click",
-            function () {
-
-                commentBox.classList.toggle(
-                    "active"
-                );
-
-            }
-        );
-
-    }
-
-
-    if (closeComments && commentBox) {
-
-        closeComments.addEventListener(
-            "click",
-            function () {
-
-                commentBox.classList.remove(
-                    "active"
-                );
-
-            }
-        );
-
-    }
-
-
-    // =========================
-    // LOCAL COMMENT DISPLAY
-    // =========================
-
-    const commentInput =
-        document.getElementById("commentInput");
-
-    const sendComment =
-        document.getElementById("sendComment");
-
-    const commentsList =
-        document.getElementById("commentsList");
-
-
-    if (
-        sendComment &&
-        commentInput &&
-        commentsList
-    ) {
-
-        sendComment.addEventListener(
-            "click",
-            function () {
-
-                const text =
-                    commentInput.value.trim();
-
-
-                if (text === "") {
-                    return;
-                }
-
-
-                const comment =
-                    document.createElement("div");
-
-
-                comment.className =
-                    "comment-item";
-
-
-                const name =
-                    document.createElement("strong");
-
-                name.textContent =
-                    "Guest";
-
-
-                const message =
-                    document.createElement("p");
-
-                message.textContent =
-                    text;
-
-
-                comment.appendChild(name);
-
-                comment.appendChild(message);
-
-
-                const noComments =
-                    commentsList.querySelector(
-                        ".no-comments"
-                    );
-
-
-                if (noComments) {
-
-                    noComments.remove();
-
-                }
-
-
-                commentsList.appendChild(
-                    comment
-                );
-
-
-                commentInput.value = "";
-
-
-                commentsList.scrollTop =
-                    commentsList.scrollHeight;
-
-            }
-        );
-
-    }
-
-
-    // =========================
-    // SHARE
-    // =========================
-
-    const shareButton =
-        document.getElementById("shareVideo");
-
-
-    if (shareButton) {
-
-        shareButton.addEventListener(
-            "click",
-            async function () {
-
-                try {
-
-                    await navigator.clipboard.writeText(
-                        window.location.href
-                    );
-
-                    alert(
-                        "Video page link copied!"
-                    );
-
-                } catch (error) {
-
-                    alert(
-                        "Copy this page link to share the memory."
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-</script>
+    </script>
 
 </body>
 
