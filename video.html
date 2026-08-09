@@ -22,6 +22,11 @@
 
 <div id="particles"></div>
 
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
 <header>
 
     <nav class="navbar">
@@ -60,6 +65,10 @@
 </header>
 
 
+<!-- =========================
+     VIDEO PAGE
+========================= -->
+
 <main class="videos-page">
 
     <div class="videos-header">
@@ -77,11 +86,16 @@
     </div>
 
 
-    <!-- VIDEO -->
+    <!-- =========================
+         VIDEO CARD
+    ========================= -->
 
     <div class="memory-video-card">
 
         <div class="memory-video">
+
+
+            <!-- VIDEO -->
 
             <video
                 id="memoryVideo"
@@ -98,9 +112,12 @@
             </video>
 
 
-            <!-- ACTION BUTTONS -->
+            <!-- =========================
+                 ACTION BUTTONS
+            ========================= -->
 
             <div class="video-actions">
+
 
                 <!-- LIKE -->
 
@@ -110,7 +127,9 @@
 
                     <i class="fa-solid fa-heart"></i>
 
-                    <span id="likeCount">0</span>
+                    <span id="likeCount">
+                        0
+                    </span>
 
                 </button>
 
@@ -123,7 +142,9 @@
 
                     <i class="fa-solid fa-comment"></i>
 
-                    <span id="commentCount">0</span>
+                    <span id="commentCount">
+                        0
+                    </span>
 
                 </button>
 
@@ -136,14 +157,22 @@
 
                     <i class="fa-solid fa-share"></i>
 
-                    <span>Share</span>
+                    <span>
+                        Share
+                    </span>
+
+                    <span id="shareCount">
+                        0
+                    </span>
 
                 </button>
 
             </div>
 
 
-            <!-- CAPTION -->
+            <!-- =========================
+                 CAPTION
+            ========================= -->
 
             <div class="video-caption">
 
@@ -158,11 +187,14 @@
             </div>
 
 
-            <!-- COMMENTS -->
+            <!-- =========================
+                 COMMENT BOX
+            ========================= -->
 
             <div
                 id="commentBox"
                 class="comment-box">
+
 
                 <div class="comment-header">
 
@@ -181,16 +213,20 @@
                 </div>
 
 
+                <!-- COMMENTS -->
+
                 <div
                     id="commentsList"
                     class="comments-list">
 
                     <p class="no-comments">
-                        No comments yet.
+                        Loading comments...
                     </p>
 
                 </div>
 
+
+                <!-- INPUT -->
 
                 <div class="comment-input">
 
@@ -198,7 +234,8 @@
                         type="text"
                         id="commentInput"
                         placeholder="Write a comment..."
-                        maxlength="200">
+                        maxlength="200"
+                        autocomplete="off">
 
                     <button
                         type="button"
@@ -219,6 +256,10 @@
 </main>
 
 
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
 
     <p>
@@ -232,14 +273,16 @@
 </footer>
 
 
-<script src="script.js"></script>
 
-
-<!-- =========================================
+<!-- =====================================================
      FIREBASE
-========================================= -->
+===================================================== -->
 
 <script type="module">
+
+/* =========================
+   FIREBASE APP
+========================= */
 
 import {
     initializeApp
@@ -251,15 +294,13 @@ import {
     doc,
     getDoc,
     setDoc,
-    updateDoc,
-    increment,
-    runTransaction,
     collection,
     addDoc,
     query,
     orderBy,
     onSnapshot,
-    serverTimestamp
+    serverTimestamp,
+    runTransaction
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
@@ -270,9 +311,9 @@ import {
 
 
 
-/* =========================================
+/* =====================================================
    FIREBASE CONFIG
-========================================= */
+===================================================== */
 
 const firebaseConfig = {
 
@@ -304,9 +345,9 @@ const firebaseConfig = {
 
 
 
-/* =========================================
-   INITIALIZE
-========================================= */
+/* =====================================================
+   INITIALIZE FIREBASE
+===================================================== */
 
 const app =
     initializeApp(firebaseConfig);
@@ -318,150 +359,327 @@ const auth =
     getAuth(app);
 
 
-console.log("🔥 Firebase connected!");
+console.log("🔥 Firebase initialized");
 
 
 
-/* =========================================
-   ANONYMOUS LOGIN
-========================================= */
+/* =====================================================
+   VIDEO ID
+===================================================== */
+
+const VIDEO_ID = "video1";
+
+
+
+/* =====================================================
+   HTML ELEMENTS
+===================================================== */
+
+const likeButton =
+    document.getElementById("likeVideo");
+
+const likeCount =
+    document.getElementById("likeCount");
+
+const commentButton =
+    document.getElementById("commentVideo");
+
+const commentCount =
+    document.getElementById("commentCount");
+
+const commentBox =
+    document.getElementById("commentBox");
+
+const closeComments =
+    document.getElementById("closeComments");
+
+const commentInput =
+    document.getElementById("commentInput");
+
+const sendComment =
+    document.getElementById("sendComment");
+
+const commentsList =
+    document.getElementById("commentsList");
+
+const shareButton =
+    document.getElementById("shareVideo");
+
+const shareCount =
+    document.getElementById("shareCount");
+
+
+
+/* =====================================================
+   FIRESTORE REFERENCES
+===================================================== */
+
+const videoRef =
+    doc(
+        db,
+        "videos",
+        VIDEO_ID
+    );
+
+
+/* =====================================================
+   COMMENTS
+===================================================== */
+
+const commentsRef =
+    collection(
+        db,
+        "videos",
+        VIDEO_ID,
+        "comments"
+    );
+
+
+
+/* =====================================================
+   START ANONYMOUS LOGIN
+===================================================== */
 
 signInAnonymously(auth)
 
-.then(() => {
+.then(async () => {
 
     console.log(
-        "👤 Anonymous user connected"
+        "👤 Anonymous user connected:",
+        auth.currentUser.uid
     );
 
-    initializeLike();
+
+    await createVideoIfNeeded();
+
+    await loadVideoData();
+
+    startCommentsListener();
 
 })
+
 
 .catch((error) => {
 
     console.error(
-        "Authentication error:",
+        "❌ Firebase authentication error:",
         error
+    );
+
+    alert(
+        "Firebase login failed. Check Firebase Authentication settings."
     );
 
 });
 
-                                
-                                 
 
 
-                         
-                             /* =========================================
-   LIKE SYSTEM - FIXED
-========================================= */
+/* =====================================================
+   CREATE VIDEO DOCUMENT IF IT DOESN'T EXIST
+===================================================== */
 
-async function initializeLike() {
-
-    const likeButton = document.getElementById("likeVideo");
-    const likeCount = document.getElementById("likeCount");
-
-    if (!likeButton || !likeCount) {
-        console.error("Like elements not found.");
-        return;
-    }
-
-    const user = auth.currentUser;
-
-    if (!user) {
-        console.error("Firebase user not found.");
-        return;
-    }
-
-    const videoRef = doc(
-        db,
-        "videos",
-        "video1"
-    );
-
-    const userLikeRef = doc(
-        db,
-        "videos",
-        "video1",
-        "likes",
-        user.uid
-    );
-
-
-    // =========================================
-    // LOAD CURRENT DATA
-    // =========================================
+async function createVideoIfNeeded() {
 
     try {
 
-        const videoSnapshot = await getDoc(videoRef);
-        const userLikeSnapshot = await getDoc(userLikeRef);
+        const snapshot =
+            await getDoc(videoRef);
 
-        let totalLikes = 0;
 
-        if (videoSnapshot.exists()) {
+        if (!snapshot.exists()) {
 
-            totalLikes =
-                videoSnapshot.data().likes || 0;
+            await setDoc(
+                videoRef,
+                {
+                    title:
+                        "My First Memory",
+
+                    description:
+                        "🎥 A memory worth keeping forever.",
+
+                    videoUrl:
+                        "video1.mp4",
+
+                    likes:
+                        0,
+
+                    shares:
+                        0,
+
+                    createdAt:
+                        serverTimestamp()
+                }
+            );
+
+
+            console.log(
+                "🎥 Video document created"
+            );
 
         }
 
-        likeCount.textContent = totalLikes;
+    }
 
-
-        if (
-            userLikeSnapshot.exists() &&
-            userLikeSnapshot.data().liked === true
-        ) {
-
-            likeButton.classList.add("liked");
-
-        } else {
-
-            likeButton.classList.remove("liked");
-
-        }
-
-    } catch (error) {
+    catch (error) {
 
         console.error(
-            "Error loading likes:",
+            "Error creating video:",
             error
         );
 
     }
 
+}
 
-    // =========================================
-    // LIKE / UNLIKE
-    // =========================================
 
-    likeButton.addEventListener(
-        "click",
-        async function () {
 
-            if (likeButton.disabled) {
-                return;
+/* =====================================================
+   LOAD LIKE + SHARE COUNTS
+===================================================== */
+
+async function loadVideoData() {
+
+    try {
+
+        const snapshot =
+            await getDoc(videoRef);
+
+
+        if (!snapshot.exists()) {
+            return;
+        }
+
+
+        const data =
+            snapshot.data();
+
+
+        likeCount.textContent =
+            Number(data.likes || 0);
+
+
+        shareCount.textContent =
+            Number(data.shares || 0);
+
+
+        /*
+         * Check whether THIS anonymous user
+         * already liked the video.
+         */
+
+        const user =
+            auth.currentUser;
+
+
+        if (user) {
+
+            const userLikeRef =
+                doc(
+                    db,
+                    "videos",
+                    VIDEO_ID,
+                    "likes",
+                    user.uid
+                );
+
+
+            const userLikeSnapshot =
+                await getDoc(userLikeRef);
+
+
+            if (
+                userLikeSnapshot.exists() &&
+                userLikeSnapshot.data().liked === true
+            ) {
+
+                likeButton.classList.add(
+                    "liked"
+                );
+
             }
 
-            likeButton.disabled = true;
+        }
 
-            try {
+    }
 
-                const result = await runTransaction(
+    catch (error) {
+
+        console.error(
+            "Error loading video:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LIKE SYSTEM
+===================================================== */
+
+likeButton.addEventListener(
+    "click",
+    async () => {
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            alert(
+                "Please wait for Firebase to connect."
+            );
+
+            return;
+
+        }
+
+
+        likeButton.disabled =
+            true;
+
+
+        const userLikeRef =
+            doc(
+                db,
+                "videos",
+                VIDEO_ID,
+                "likes",
+                user.uid
+            );
+
+
+        try {
+
+            const result =
+                await runTransaction(
                     db,
                     async (transaction) => {
 
+
                         const videoSnapshot =
-                            await transaction.get(videoRef);
+                            await transaction.get(
+                                videoRef
+                            );
+
 
                         const userLikeSnapshot =
-                            await transaction.get(userLikeRef);
+                            await transaction.get(
+                                userLikeRef
+                            );
 
 
-                        let currentLikes = 0;
+                        let currentLikes =
+                            0;
 
-                        if (videoSnapshot.exists()) {
+
+                        if (
+                            videoSnapshot.exists()
+                        ) {
 
                             currentLikes =
                                 Number(
@@ -476,9 +694,10 @@ async function initializeLike() {
                             userLikeSnapshot.data().liked === true;
 
 
-                        // =========================
-                        // UNLIKE
-                        // =========================
+
+                        /* =========================
+                           UNLIKE
+                        ========================= */
 
                         if (alreadyLiked) {
 
@@ -492,7 +711,8 @@ async function initializeLike() {
                             transaction.set(
                                 videoRef,
                                 {
-                                    likes: newLikes
+                                    likes:
+                                        newLikes
                                 },
                                 {
                                     merge: true
@@ -503,7 +723,8 @@ async function initializeLike() {
                             transaction.set(
                                 userLikeRef,
                                 {
-                                    liked: false
+                                    liked:
+                                        false
                                 },
                                 {
                                     merge: true
@@ -512,16 +733,20 @@ async function initializeLike() {
 
 
                             return {
-                                liked: false,
-                                likes: newLikes
+                                liked:
+                                    false,
+
+                                likes:
+                                    newLikes
                             };
 
                         }
 
 
-                        // =========================
-                        // LIKE
-                        // =========================
+
+                        /* =========================
+                           LIKE
+                        ========================= */
 
                         const newLikes =
                             currentLikes + 1;
@@ -530,7 +755,8 @@ async function initializeLike() {
                         transaction.set(
                             videoRef,
                             {
-                                likes: newLikes
+                                likes:
+                                    newLikes
                             },
                             {
                                 merge: true
@@ -541,7 +767,8 @@ async function initializeLike() {
                         transaction.set(
                             userLikeRef,
                             {
-                                liked: true
+                                liked:
+                                    true
                             },
                             {
                                 merge: true
@@ -550,167 +777,137 @@ async function initializeLike() {
 
 
                         return {
-                            liked: true,
-                            likes: newLikes
+                            liked:
+                                true,
+
+                            likes:
+                                newLikes
                         };
 
                     }
                 );
 
 
-                // =================================
-                // UPDATE SCREEN ONLY AFTER FIREBASE
-                // SUCCESSFULLY SAVES
-                // =================================
 
-                likeCount.textContent =
-                    result.likes;
+            /* =========================
+               UPDATE SCREEN
+            ========================= */
 
-
-                if (result.liked) {
-
-                    likeButton.classList.add(
-                        "liked"
-                    );
-
-                } else {
-
-                    likeButton.classList.remove(
-                        "liked"
-                    );
-
-                }
+            likeCount.textContent =
+                result.likes;
 
 
-                console.log(
-                    result.liked
-                        ? "❤️ Like saved"
-                        : "💔 Unlike saved"
+            if (result.liked) {
+
+                likeButton.classList.add(
+                    "liked"
                 );
 
+            }
 
-            } catch (error) {
+            else {
 
-                console.error(
-                    "LIKE ERROR:",
-                    error
-                );
-
-
-                alert(
-                    "Unable to save your like. Please try again."
+                likeButton.classList.remove(
+                    "liked"
                 );
 
             }
 
 
-            likeButton.disabled = false;
-
-        }
-    );
-
-}
-const commentButton =
-    document.getElementById(
-        "commentVideo"
-    );
-
-
-const commentBox =
-    document.getElementById(
-        "commentBox"
-    );
-
-
-const closeComments =
-    document.getElementById(
-        "closeComments"
-    );
-
-
-if (
-    commentButton &&
-    commentBox
-) {
-
-    commentButton.addEventListener(
-        "click",
-        () => {
-
-            commentBox.classList.toggle(
-                "active"
+            console.log(
+                result.liked
+                    ? "❤️ Like saved"
+                    : "💔 Like removed"
             );
 
         }
-    );
 
-}
+        catch (error) {
+
+            console.error(
+                "❌ LIKE ERROR:",
+                error
+            );
 
 
-if (
-    closeComments &&
-    commentBox
-) {
-
-    closeComments.addEventListener(
-        "click",
-        () => {
-
-            commentBox.classList.remove(
-                "active"
+            alert(
+                "Unable to save your like. Please try again."
             );
 
         }
-    );
-
-}
 
 
+        likeButton.disabled =
+            false;
 
-/* =========================================
-   FIRESTORE COMMENTS
-========================================= */
-
-const commentInput =
-    document.getElementById("commentInput");
-
-const sendComment =
-    document.getElementById("sendComment");
-
-const commentsList =
-    document.getElementById("commentsList");
-
-const commentCount =
-    document.getElementById("commentCount");
+    }
+);
 
 
-const commentsRef =
-    collection(
-        db,
-        "videos",
-        "video1",
-        "comments"
-    );
+
+/* =====================================================
+   OPEN COMMENTS
+===================================================== */
+
+commentButton.addEventListener(
+    "click",
+    () => {
+
+        commentBox.classList.toggle(
+            "active"
+        );
+
+    }
+);
 
 
-/* =========================================
-   LOAD COMMENTS
-========================================= */
 
-function loadComments() {
+/* =====================================================
+   CLOSE COMMENTS
+===================================================== */
+
+closeComments.addEventListener(
+    "click",
+    () => {
+
+        commentBox.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   LOAD COMMENTS IN REAL TIME
+===================================================== */
+
+function startCommentsListener() {
+
 
     const commentsQuery =
         query(
             commentsRef,
-            orderBy("createdAt", "asc")
+            orderBy(
+                "createdAt",
+                "asc"
+            )
         );
 
 
     onSnapshot(
         commentsQuery,
+
         (snapshot) => {
 
-            commentsList.innerHTML = "";
+
+            commentsList.innerHTML =
+                "";
+
+
+            commentCount.textContent =
+                snapshot.size;
 
 
             if (snapshot.empty) {
@@ -721,56 +918,65 @@ function loadComments() {
                     </p>
                 `;
 
-                if (commentCount) {
-                    commentCount.textContent = "0";
-                }
-
                 return;
-            }
-
-
-            snapshot.forEach((commentDoc) => {
-
-                const data =
-                    commentDoc.data();
-
-
-                const comment =
-                    document.createElement("div");
-
-                comment.className =
-                    "comment-item";
-
-
-                const name =
-                    document.createElement("strong");
-
-                name.textContent =
-                    "Guest";
-
-
-                const message =
-                    document.createElement("p");
-
-                message.textContent =
-                    data.text || "";
-
-
-                comment.appendChild(name);
-
-                comment.appendChild(message);
-
-                commentsList.appendChild(comment);
-
-            });
-
-
-            if (commentCount) {
-
-                commentCount.textContent =
-                    snapshot.size;
 
             }
+
+
+            snapshot.forEach(
+                (commentDoc) => {
+
+
+                    const data =
+                        commentDoc.data();
+
+
+                    const comment =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    comment.className =
+                        "comment-item";
+
+
+                    const name =
+                        document.createElement(
+                            "strong"
+                        );
+
+
+                    name.textContent =
+                        "Guest";
+
+
+                    const message =
+                        document.createElement(
+                            "p"
+                        );
+
+
+                    message.textContent =
+                        data.text || "";
+
+
+                    comment.appendChild(
+                        name
+                    );
+
+
+                    comment.appendChild(
+                        message
+                    );
+
+
+                    commentsList.appendChild(
+                        comment
+                    );
+
+                }
+            );
 
 
             commentsList.scrollTop =
@@ -781,163 +987,278 @@ function loadComments() {
         (error) => {
 
             console.error(
-                "Error loading comments:",
+                "❌ Comment listener error:",
+                error
+            );
+
+            commentsList.innerHTML = `
+                <p>
+                    Unable to load comments.
+                </p>
+            `;
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   SEND COMMENT
+===================================================== */
+
+sendComment.addEventListener(
+    "click",
+    async () => {
+
+
+        const text =
+            commentInput.value.trim();
+
+
+        if (!text) {
+
+            return;
+
+        }
+
+
+        sendComment.disabled =
+            true;
+
+
+        try {
+
+
+            await addDoc(
+                commentsRef,
+                {
+
+                    text:
+                        text,
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    userId:
+                        auth.currentUser
+                            ? auth.currentUser.uid
+                            : "guest"
+
+                }
+            );
+
+
+            commentInput.value =
+                "";
+
+
+            console.log(
+                "💬 Comment saved!"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "❌ COMMENT ERROR:",
+                error
+            );
+
+
+            alert(
+                "Unable to save comment. Please try again."
+            );
+
+        }
+
+
+        sendComment.disabled =
+            false;
+
+    }
+);
+
+
+
+/* =====================================================
+   SEND COMMENT WITH ENTER
+===================================================== */
+
+commentInput.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            sendComment.click();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   SHARE SYSTEM
+===================================================== */
+
+shareButton.addEventListener(
+    "click",
+    async () => {
+
+
+        try {
+
+
+            /*
+             * First share/copy the link.
+             */
+
+            if (
+                navigator.share
+            ) {
+
+                await navigator.share({
+
+                    title:
+                        "My First Memory",
+
+                    text:
+                        "🎥 A memory worth keeping forever.",
+
+                    url:
+                        window.location.href
+
+                });
+
+            }
+
+            else {
+
+                await navigator.clipboard.writeText(
+                    window.location.href
+                );
+
+                alert(
+                    "Video link copied!"
+                );
+
+            }
+
+
+
+            /*
+             * Count the share only after
+             * the share action succeeds.
+             */
+
+            await runTransaction(
+                db,
+                async (transaction) => {
+
+
+                    const snapshot =
+                        await transaction.get(
+                            videoRef
+                        );
+
+
+                    let currentShares =
+                        0;
+
+
+                    if (
+                        snapshot.exists()
+                    ) {
+
+                        currentShares =
+                            Number(
+                                snapshot.data().shares || 0
+                            );
+
+                    }
+
+
+                    const newShares =
+                        currentShares + 1;
+
+
+                    transaction.set(
+                        videoRef,
+                        {
+                            shares:
+                                newShares
+                        },
+                        {
+                            merge: true
+                        }
+                    );
+
+
+                    return newShares;
+
+                }
+            );
+
+
+            /*
+             * Reload the number.
+             */
+
+            const updated =
+                await getDoc(
+                    videoRef
+                );
+
+
+            if (
+                updated.exists()
+            ) {
+
+                shareCount.textContent =
+                    Number(
+                        updated.data().shares || 0
+                    );
+
+            }
+
+
+        }
+
+        catch (error) {
+
+            /*
+             * User cancelling the share
+             * is NOT treated as an error.
+             */
+
+            console.log(
+                "Share cancelled or unavailable.",
                 error
             );
 
         }
-    );
 
-}
-
-
-/* =========================================
-   SEND COMMENT
-========================================= */
-
-if (
-    sendComment &&
-    commentInput &&
-    commentsList
-) {
-
-    sendComment.addEventListener(
-        "click",
-        async () => {
-
-            const text =
-                commentInput.value.trim();
+    }
+);
 
 
-            if (!text) {
 
-                return;
+/* =====================================================
+   CONSOLE
+===================================================== */
 
-            }
-
-
-            sendComment.disabled =
-                true;
-
-
-            try {
-
-                await addDoc(
-                    commentsRef,
-                    {
-                        text: text,
-                        createdAt:
-                            serverTimestamp()
-                    }
-                );
-
-
-                commentInput.value = "";
-
-
-                console.log(
-                    "💬 Comment saved!"
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "Comment error:",
-                    error
-                );
-
-
-                alert(
-                    "Unable to save comment. Please try again."
-                );
-
-            }
-
-
-            sendComment.disabled =
-                false;
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   START COMMENT LISTENER
-========================================= */
-
-if (commentsList) {
-
-    loadComments();
-
-}
-
-/* =========================================
-   SHARE
-========================================= */
-
-const shareButton =
-    document.getElementById(
-        "shareVideo"
-    );
-
-
-if (shareButton) {
-
-    shareButton.addEventListener(
-        "click",
-        async () => {
-
-            try {
-
-                if (
-                    navigator.share
-                ) {
-
-                    await navigator.share({
-
-                        title:
-                            "My First Memory",
-
-                        text:
-                            "🎥 A memory worth keeping forever.",
-
-                        url:
-                            window.location.href
-
-                    });
-
-                }
-
-                else {
-
-                    await navigator.clipboard.writeText(
-                        window.location.href
-                    );
-
-
-                    alert(
-                        "Video link copied!"
-                    );
-
-                }
-
-            }
-
-            catch (error) {
-
-                console.log(
-                    "Share cancelled."
-                );
-
-            }
-
-        }
-    );
-
-}
+console.log(
+    "🎥 Marjeron's Vault video system loaded!"
+);
 
 </script>
 
