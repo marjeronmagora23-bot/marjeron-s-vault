@@ -20,195 +20,193 @@
 
 <body>
 
-    <div id="particles"></div>
+<div id="particles"></div>
 
-    <!-- NAVIGATION -->
+<header>
 
-    <header>
+    <nav class="navbar">
 
-        <nav class="navbar">
-
-            <div class="logo">
-                💾 Marjeron's Vault
-            </div>
-
-            <ul>
-
-                <li>
-                    <a href="index.html">
-                        <i class="fa-solid fa-house"></i>
-                        Home
-                    </a>
-                </li>
-
-                <li>
-                    <a href="dashboard.html">
-                        <i class="fa-solid fa-lock"></i>
-                        Vault
-                    </a>
-                </li>
-
-                <li>
-                    <a href="gallery.html">
-                        <i class="fa-solid fa-images"></i>
-                        Gallery
-                    </a>
-                </li>
-
-            </ul>
-
-        </nav>
-
-    </header>
-
-
-    <!-- VIDEO PAGE -->
-
-    <main class="videos-page">
-
-        <div class="videos-header">
-
-            <p class="dashboard-label">
-                🎥 VIDEO ARCHIVE
-            </p>
-
-            <h1>My Videos</h1>
-
-            <p>
-                Moments captured in motion.
-            </p>
-
+        <div class="logo">
+            💾 Marjeron's Vault
         </div>
 
+        <ul>
 
-        <!-- VIDEO CARD -->
+            <li>
+                <a href="index.html">
+                    <i class="fa-solid fa-house"></i>
+                    Home
+                </a>
+            </li>
 
-        <div class="memory-video-card">
+            <li>
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-lock"></i>
+                    Vault
+                </a>
+            </li>
 
-            <div class="memory-video">
+            <li>
+                <a href="gallery.html">
+                    <i class="fa-solid fa-images"></i>
+                    Gallery
+                </a>
+            </li>
 
-                <!-- VIDEO -->
+        </ul>
 
-                <video
-                    id="memoryVideo"
-                    controls
-                    playsinline
-                    preload="metadata">
+    </nav>
 
-                    <source
-                        src="video1.mp4"
-                        type="video/mp4">
-
-                    Your browser does not support video playback.
-
-                </video>
+</header>
 
 
-                <!-- ACTION BUTTONS -->
+<main class="videos-page">
 
-                <div class="video-actions">
+    <div class="videos-header">
 
-                    <!-- LIKE -->
+        <p class="dashboard-label">
+            🎥 VIDEO ARCHIVE
+        </p>
+
+        <h1>My Videos</h1>
+
+        <p>
+            Moments captured in motion.
+        </p>
+
+    </div>
+
+
+    <!-- VIDEO -->
+
+    <div class="memory-video-card">
+
+        <div class="memory-video">
+
+            <video
+                id="memoryVideo"
+                controls
+                playsinline
+                preload="metadata">
+
+                <source
+                    src="video1.mp4"
+                    type="video/mp4">
+
+                Your browser does not support video playback.
+
+            </video>
+
+
+            <!-- ACTION BUTTONS -->
+
+            <div class="video-actions">
+
+                <!-- LIKE -->
+
+                <button
+                    type="button"
+                    id="likeVideo">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    <span id="likeCount">0</span>
+
+                </button>
+
+
+                <!-- COMMENT -->
+
+                <button
+                    type="button"
+                    id="commentVideo">
+
+                    <i class="fa-solid fa-comment"></i>
+
+                    <span id="commentCount">0</span>
+
+                </button>
+
+
+                <!-- SHARE -->
+
+                <button
+                    type="button"
+                    id="shareVideo">
+
+                    <i class="fa-solid fa-share"></i>
+
+                    <span>Share</span>
+
+                </button>
+
+            </div>
+
+
+            <!-- CAPTION -->
+
+            <div class="video-caption">
+
+                <h3>
+                    My First Memory
+                </h3>
+
+                <p>
+                    🎥 A memory worth keeping forever.
+                </p>
+
+            </div>
+
+
+            <!-- COMMENTS -->
+
+            <div
+                id="commentBox"
+                class="comment-box">
+
+                <div class="comment-header">
+
+                    <h3>
+                        💬 Comments
+                    </h3>
 
                     <button
                         type="button"
-                        id="likeVideo"
-                        aria-label="Like video">
+                        id="closeComments">
 
-                        <i class="fa-solid fa-heart"></i>
-
-                        <span id="likeCount">
-                            0
-                        </span>
-
-                    </button>
-
-
-                    <!-- COMMENT -->
-
-                    <button
-                        type="button"
-                        id="commentVideo"
-                        aria-label="Comments">
-
-                        <i class="fa-solid fa-comment"></i>
-
-                        <span id="commentCount">
-                            0
-                        </span>
+                        ✕
 
                     </button>
 
                 </div>
 
 
-                <!-- CAPTION -->
+                <div
+                    id="commentsList"
+                    class="comments-list">
 
-                <div class="video-caption">
-
-                    <h3>
-                        My First Memory
-                    </h3>
-
-                    <p>
-                        🎥 A memory worth keeping forever.
+                    <p class="no-comments">
+                        No comments yet.
                     </p>
 
                 </div>
 
 
-                <!-- COMMENT BOX -->
+                <div class="comment-input">
 
-                <div
-                    id="commentBox"
-                    class="comment-box">
+                    <input
+                        type="text"
+                        id="commentInput"
+                        placeholder="Write a comment..."
+                        maxlength="200">
 
-                    <div class="comment-header">
+                    <button
+                        type="button"
+                        id="sendComment">
 
-                        <h3>
-                            💬 Comments
-                        </h3>
+                        <i class="fa-solid fa-paper-plane"></i>
 
-                        <button
-                            type="button"
-                            id="closeComments">
-
-                            ✕
-
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        id="commentsList"
-                        class="comments-list">
-
-                        <p class="no-comments">
-                            No comments yet.
-                        </p>
-
-                    </div>
-
-
-                    <div class="comment-input">
-
-                        <input
-                            type="text"
-                            id="commentInput"
-                            placeholder="Write a comment..."
-                            maxlength="200">
-
-                        <button
-                            type="button"
-                            id="sendComment"
-                            aria-label="Send comment">
-
-                            <i class="fa-solid fa-paper-plane"></i>
-
-                        </button>
-
-                    </div>
+                    </button>
 
                 </div>
 
@@ -216,255 +214,352 @@
 
         </div>
 
-    </main>
+    </div>
+
+</main>
 
 
-    <!-- FOOTER -->
+<footer>
 
-    <footer>
+    <p>
+        💾 Marjeron's Vault
+    </p>
 
-        <p>
-            💾 Marjeron's Vault
-        </p>
+    <p>
+        Every video has a story.
+    </p>
 
-        <p>
-            Every video has a story.
-        </p>
-
-    </footer>
+</footer>
 
 
-    <!-- YOUR EXISTING SCRIPT -->
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 
-    <!-- FIREBASE -->
+<!-- =========================================
+     FIREBASE
+========================================= -->
 
-    <script type="module">
+<script type="module">
 
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-
-        import {
-            getFirestore,
-            doc,
-            getDoc,
-            setDoc
-        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 
-        import {
-            getAuth,
-            signInAnonymously
-        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    increment,
+    runTransaction
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-        // ==========================================
-        // FIREBASE CONFIG
-        // ==========================================
-
-        const firebaseConfig = {
-
-            apiKey: "AIzaSyCGCqg8NjUfhVFyXJh5ohH3T9a2pW5ctzI",
-
-            authDomain:
-                "marjeron-portfolio.firebaseapp.com",
-
-            databaseURL:
-                "https://marjeron-portfolio-default-rtdb.firebaseio.com",
-
-            projectId:
-                "marjeron-portfolio",
-
-            storageBucket:
-                "marjeron-portfolio.firebasestorage.app",
-
-            messagingSenderId:
-                "203019659206",
-
-            appId:
-                "1:203019659206:web:fee5781c524f1119efb4c7",
-
-            measurementId:
-                "G-BB4NXL53YK"
-
-        };
+import {
+    getAuth,
+    signInAnonymously
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-        // ==========================================
-        // INITIALIZE FIREBASE
-        // ==========================================
 
-        const app =
-            initializeApp(firebaseConfig);
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
 
-        const db =
-            getFirestore(app);
+const firebaseConfig = {
 
-        const auth =
-            getAuth(app);
+    apiKey:
+        "AIzaSyCGCqg8NjUfhVFyXJh5ohH3T9a2pW5ctzI",
+
+    authDomain:
+        "marjeron-portfolio.firebaseapp.com",
+
+    databaseURL:
+        "https://marjeron-portfolio-default-rtdb.firebaseio.com",
+
+    projectId:
+        "marjeron-portfolio",
+
+    storageBucket:
+        "marjeron-portfolio.firebasestorage.app",
+
+    messagingSenderId:
+        "203019659206",
+
+    appId:
+        "1:203019659206:web:fee5781c524f1119efb4c7",
+
+    measurementId:
+        "G-BB4NXL53YK"
+
+};
 
 
-        console.log(
-            "🔥 Firebase connected!"
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
+const auth =
+    getAuth(app);
+
+
+console.log("🔥 Firebase connected!");
+
+
+
+/* =========================================
+   ANONYMOUS LOGIN
+========================================= */
+
+signInAnonymously(auth)
+
+.then(() => {
+
+    console.log(
+        "👤 Anonymous user connected"
+    );
+
+    initializeLike();
+
+})
+
+.catch((error) => {
+
+    console.error(
+        "Authentication error:",
+        error
+    );
+
+});
+
+
+
+/* =========================================
+   LIKE SYSTEM
+========================================= */
+
+async function initializeLike() {
+
+    const likeButton =
+        document.getElementById(
+            "likeVideo"
+        );
+
+    const likeCount =
+        document.getElementById(
+            "likeCount"
         );
 
 
-        // ==========================================
-        // ANONYMOUS LOGIN
-        // ==========================================
+    if (!likeButton || !likeCount) {
 
-        signInAnonymously(auth)
+        console.error(
+            "Like elements not found."
+        );
 
-            .then(() => {
+        return;
 
-                console.log(
-                    "👤 Anonymous user connected"
-                );
-
-                startLikeSystem();
-
-            })
-
-            .catch((error) => {
-
-                console.error(
-                    "Firebase authentication error:",
-                    error
-                );
-
-            });
+    }
 
 
-        // ==========================================
-        // LIKE SYSTEM
-        // ==========================================
-
-        async function startLikeSystem() {
-
-            const likeButton =
-                document.getElementById(
-                    "likeVideo"
-                );
+    const user =
+        auth.currentUser;
 
 
-            const likeCount =
-                document.getElementById(
-                    "likeCount"
-                );
+    if (!user) {
+
+        console.error(
+            "No Firebase user."
+        );
+
+        return;
+
+    }
 
 
-            if (!likeButton || !likeCount) {
+    /* VIDEO DOCUMENT */
 
-                console.error(
-                    "Like button not found."
-                );
-
-                return;
-
-            }
-
-
-            const user =
-                auth.currentUser;
+    const videoRef =
+        doc(
+            db,
+            "videos",
+            "video1"
+        );
 
 
-            if (!user) {
+    /* USER LIKE DOCUMENT */
 
-                console.error(
-                    "Firebase user not found."
-                );
-
-                return;
-
-            }
-
-
-            const likeRef =
-                doc(
-                    db,
-                    "videos",
-                    "video1",
-                    "likes",
-                    user.uid
-                );
+    const userLikeRef =
+        doc(
+            db,
+            "videos",
+            "video1",
+            "likes",
+            user.uid
+        );
 
 
-            // --------------------------------------
-            // CHECK CURRENT LIKE
-            // --------------------------------------
+
+    /* =====================================
+       CREATE VIDEO DOCUMENT IF NEEDED
+    ===================================== */
+
+    try {
+
+        const videoSnapshot =
+            await getDoc(videoRef);
+
+
+        if (!videoSnapshot.exists()) {
+
+            await setDoc(
+                videoRef,
+                {
+                    likes: 0
+                }
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Could not initialize video:",
+            error
+        );
+
+    }
+
+
+
+    /* =====================================
+       LOAD CURRENT LIKE STATE
+    ===================================== */
+
+    try {
+
+        const videoSnapshot =
+            await getDoc(videoRef);
+
+        const userLikeSnapshot =
+            await getDoc(userLikeRef);
+
+
+        const data =
+            videoSnapshot.data();
+
+
+        likeCount.textContent =
+            data?.likes || 0;
+
+
+        if (
+            userLikeSnapshot.exists() &&
+            userLikeSnapshot.data().liked === true
+        ) {
+
+            likeButton.classList.add(
+                "liked"
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Could not load likes:",
+            error
+        );
+
+    }
+
+
+
+    /* =====================================
+       LIKE / UNLIKE
+    ===================================== */
+
+    likeButton.addEventListener(
+        "click",
+        async () => {
+
+            likeButton.disabled = true;
+
 
             try {
 
-                const snapshot =
-                    await getDoc(
-                        likeRef
-                    );
+                await runTransaction(
+                    db,
+                    async (transaction) => {
 
-
-                if (snapshot.exists()) {
-
-                    likeButton.classList.add(
-                        "liked"
-                    );
-
-                    likeCount.textContent =
-                        "1";
-
-                } else {
-
-                    likeButton.classList.remove(
-                        "liked"
-                    );
-
-                    likeCount.textContent =
-                        "0";
-
-                }
-
-            } catch (error) {
-
-                console.error(
-                    "Error loading like:",
-                    error
-                );
-
-            }
-
-
-            // --------------------------------------
-            // LIKE / UNLIKE
-            // --------------------------------------
-
-            likeButton.addEventListener(
-                "click",
-                async () => {
-
-                    likeButton.disabled =
-                        true;
-
-
-                    try {
-
-                        const snapshot =
-                            await getDoc(
-                                likeRef
+                        const videoSnapshot =
+                            await transaction.get(
+                                videoRef
                             );
 
 
-                        if (snapshot.exists()) {
+                        const userLikeSnapshot =
+                            await transaction.get(
+                                userLikeRef
+                            );
 
-                            // UNLIKE
 
-                            await setDoc(
-                                likeRef,
+                        let currentLikes = 0;
+
+
+                        if (
+                            videoSnapshot.exists()
+                        ) {
+
+                            currentLikes =
+                                videoSnapshot.data().likes || 0;
+
+                        }
+
+
+                        /* =====================
+                           UNLIKE
+                        ===================== */
+
+                        if (
+                            userLikeSnapshot.exists() &&
+                            userLikeSnapshot.data().liked === true
+                        ) {
+
+                            const newLikes =
+                                Math.max(
+                                    0,
+                                    currentLikes - 1
+                                );
+
+
+                            transaction.update(
+                                videoRef,
+                                {
+                                    likes: newLikes
+                                }
+                            );
+
+
+                            transaction.set(
+                                userLikeRef,
                                 {
                                     liked: false
                                 }
                             );
+
+
+                            likeCount.textContent =
+                                newLikes;
 
 
                             likeButton.classList.remove(
@@ -472,27 +567,41 @@
                             );
 
 
-                            likeCount.textContent =
-                                "0";
-
-
                             console.log(
-                                "💔 Video unliked"
+                                "💔 Unliked"
                             );
 
+                        }
 
-                        } else {
 
-                            // LIKE
+                        /* =====================
+                           LIKE
+                        ===================== */
 
-                            await setDoc(
-                                likeRef,
+                        else {
+
+                            const newLikes =
+                                currentLikes + 1;
+
+
+                            transaction.update(
+                                videoRef,
                                 {
-                                    liked: true,
-                                    createdAt:
-                                        new Date()
+                                    likes: newLikes
                                 }
                             );
+
+
+                            transaction.set(
+                                userLikeRef,
+                                {
+                                    liked: true
+                                }
+                            );
+
+
+                            likeCount.textContent =
+                                newLikes;
 
 
                             likeButton.classList.add(
@@ -500,214 +609,281 @@
                             );
 
 
-                            likeCount.textContent =
-                                "1";
-
-
                             console.log(
-                                "❤️ Video liked"
+                                "❤️ Liked"
                             );
 
                         }
 
-                    } catch (error) {
-
-                        console.error(
-                            "Like error:",
-                            error
-                        );
-
-                        alert(
-                            "Unable to save your like. Please try again."
-                        );
-
                     }
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "LIKE ERROR:",
+                    error
+                );
 
 
-                    likeButton.disabled =
-                        false;
+                alert(
+                    "Unable to save your like. Check Firestore Rules."
+                );
 
-                }
+            }
+
+
+            likeButton.disabled = false;
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   COMMENT BOX
+========================================= */
+
+const commentButton =
+    document.getElementById(
+        "commentVideo"
+    );
+
+
+const commentBox =
+    document.getElementById(
+        "commentBox"
+    );
+
+
+const closeComments =
+    document.getElementById(
+        "closeComments"
+    );
+
+
+if (
+    commentButton &&
+    commentBox
+) {
+
+    commentButton.addEventListener(
+        "click",
+        () => {
+
+            commentBox.classList.toggle(
+                "active"
             );
 
         }
+    );
+
+}
 
 
-        // ==========================================
-        // COMMENT BOX
-        // ==========================================
+if (
+    closeComments &&
+    commentBox
+) {
 
-        const commentButton =
-            document.getElementById(
-                "commentVideo"
-            );
+    closeComments.addEventListener(
+        "click",
+        () => {
 
-
-        const commentBox =
-            document.getElementById(
-                "commentBox"
-            );
-
-
-        const closeComments =
-            document.getElementById(
-                "closeComments"
-            );
-
-
-        if (
-            commentButton &&
-            commentBox
-        ) {
-
-            commentButton.addEventListener(
-                "click",
-                () => {
-
-                    commentBox.classList.toggle(
-                        "active"
-                    );
-
-                }
+            commentBox.classList.remove(
+                "active"
             );
 
         }
+    );
+
+}
 
 
-        if (
-            closeComments &&
-            commentBox
-        ) {
 
-            closeComments.addEventListener(
-                "click",
-                () => {
+/* =========================================
+   COMMENTS
+========================================= */
 
-                    commentBox.classList.remove(
-                        "active"
+const commentInput =
+    document.getElementById(
+        "commentInput"
+    );
+
+
+const sendComment =
+    document.getElementById(
+        "sendComment"
+    );
+
+
+const commentsList =
+    document.getElementById(
+        "commentsList"
+    );
+
+
+if (
+    sendComment &&
+    commentInput &&
+    commentsList
+) {
+
+    sendComment.addEventListener(
+        "click",
+        () => {
+
+            const text =
+                commentInput.value.trim();
+
+
+            if (!text) {
+
+                return;
+
+            }
+
+
+            const comment =
+                document.createElement(
+                    "div"
+                );
+
+
+            comment.className =
+                "comment-item";
+
+
+            const name =
+                document.createElement(
+                    "strong"
+                );
+
+
+            name.textContent =
+                "Guest";
+
+
+            const message =
+                document.createElement(
+                    "p"
+                );
+
+
+            message.textContent =
+                text;
+
+
+            comment.appendChild(
+                name
+            );
+
+
+            comment.appendChild(
+                message
+            );
+
+
+            const noComments =
+                commentsList.querySelector(
+                    ".no-comments"
+                );
+
+
+            if (noComments) {
+
+                noComments.remove();
+
+            }
+
+
+            commentsList.appendChild(
+                comment
+            );
+
+
+            commentInput.value =
+                "";
+
+
+            commentsList.scrollTop =
+                commentsList.scrollHeight;
+
+        }
+    );
+
+}
+
+
+
+/* =========================================
+   SHARE
+========================================= */
+
+const shareButton =
+    document.getElementById(
+        "shareVideo"
+    );
+
+
+if (shareButton) {
+
+    shareButton.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share({
+
+                        title:
+                            "My First Memory",
+
+                        text:
+                            "🎥 A memory worth keeping forever.",
+
+                        url:
+                            window.location.href
+
+                    });
+
+                }
+
+                else {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+
+                    alert(
+                        "Video link copied!"
                     );
 
                 }
-            );
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Share cancelled."
+                );
+
+            }
 
         }
+    );
 
+}
 
-        // ==========================================
-        // LOCAL COMMENTS
-        // ==========================================
-
-        const commentInput =
-            document.getElementById(
-                "commentInput"
-            );
-
-
-        const sendComment =
-            document.getElementById(
-                "sendComment"
-            );
-
-
-        const commentsList =
-            document.getElementById(
-                "commentsList"
-            );
-
-
-        if (
-            sendComment &&
-            commentInput &&
-            commentsList
-        ) {
-
-            sendComment.addEventListener(
-                "click",
-                () => {
-
-                    const text =
-                        commentInput.value.trim();
-
-
-                    if (!text) {
-
-                        return;
-
-                    }
-
-
-                    const comment =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    comment.className =
-                        "comment-item";
-
-
-                    const username =
-                        document.createElement(
-                            "strong"
-                        );
-
-
-                    username.textContent =
-                        "Guest";
-
-
-                    const message =
-                        document.createElement(
-                            "p"
-                        );
-
-
-                    message.textContent =
-                        text;
-
-
-                    comment.appendChild(
-                        username
-                    );
-
-
-                    comment.appendChild(
-                        message
-                    );
-
-
-                    const noComments =
-                        commentsList.querySelector(
-                            ".no-comments"
-                        );
-
-
-                    if (noComments) {
-
-                        noComments.remove();
-
-                    }
-
-
-                    commentsList.appendChild(
-                        comment
-                    );
-
-
-                    commentInput.value =
-                        "";
-
-
-                    commentsList.scrollTop =
-                        commentsList.scrollHeight;
-
-                }
-            );
-
-        }
-
-    </script>
+</script>
 
 </body>
-
 </html>
