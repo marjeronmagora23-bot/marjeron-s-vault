@@ -224,234 +224,379 @@
     <script src="script.js"></script>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+    // =========================
+    // FIREBASE
+    // =========================
+
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
     import {
         getFirestore,
         doc,
         getDoc,
-        setDoc,
-        updateDoc,
-        increment,
-        collection,
-        addDoc,
-        query,
-        orderBy,
-        onSnapshot,
-        serverTimestamp
+        setDoc
     } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-import {
-    getAuth,
-    signInAnonymously
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-    // PASTE YOUR FIREBASE CONFIG HERE
+    import {
+        getAuth,
+        signInAnonymously
+    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+    // =========================
+    // FIREBASE CONFIG
+    // =========================
+
     const firebaseConfig = {
-        // Paste the config you copied from Firebase here
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyCGCqg8NjUfhVFyXJh5ohH3T9a2pW5ctzI",
-  authDomain: "marjeron-portfolio.firebaseapp.com",
-  databaseURL: "https://marjeron-portfolio-default-rtdb.firebaseio.com",
-  projectId: "marjeron-portfolio",
-  storageBucket: "marjeron-portfolio.firebasestorage.app",
-  messagingSenderId: "203019659206",
-  appId: "1:203019659206:web:fee5781c524f1119efb4c7",
-  measurementId: "G-BB4NXL53YK"
-};
+        apiKey: "AIzaSyCGCqg8NjUfhVFyXJh5ohH3T9a2pW5ctzI",
+        authDomain: "marjeron-portfolio.firebaseapp.com",
+        databaseURL: "https://marjeron-portfolio-default-rtdb.firebaseio.com",
+        projectId: "marjeron-portfolio",
+        storageBucket: "marjeron-portfolio.firebasestorage.app",
+        messagingSenderId: "203019659206",
+        appId: "1:203019659206:web:fee5781c524f1119efb4c7",
+        measurementId: "G-BB4NXL53YK"
     };
+
+
+    // =========================
+    // INITIALIZE FIREBASE
+    // =========================
 
     const app = initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+    const db = getFirestore(app);
 
-const auth = getAuth(app);
+    const auth = getAuth(app);
 
-console.log("🔥 Firebase connected!");
 
-signInAnonymously(auth)
-    .then(() => {
-        console.log("👤 Anonymous user connected");
-    })
-    .catch((error) => {
-        console.error("Authentication error:", error);
-    });
+    console.log("🔥 Firebase connected!");
 
-    // We will add Likes + Comments here next.
-</script>
 
-    <script>
+    // =========================
+    // ANONYMOUS LOGIN
+    // =========================
 
-        // =========================
-        // LIKE BUTTON
-        // =========================
+    signInAnonymously(auth)
+        .then(() => {
+
+            console.log("👤 Anonymous user connected");
+
+            setupLikeSystem();
+
+        })
+        .catch((error) => {
+
+            console.error(
+                "Authentication error:",
+                error
+            );
+
+        });
+
+
+    // =========================
+    // LIKE SYSTEM
+    // =========================
+
+    async function setupLikeSystem() {
 
         const likeButton =
             document.getElementById("likeVideo");
 
-        if (likeButton) {
+        if (!likeButton) return;
 
-            let liked = false;
 
-            let likes = 0;
+        const likeCount =
+            likeButton.querySelector("span");
 
-            likeButton.addEventListener(
-                "click",
-                function () {
 
-                    liked = !liked;
+        const user = auth.currentUser;
 
-                    if (liked) {
+        if (!user) return;
 
-                        likes = 1;
 
-                        this.classList.add("liked");
+        const likeRef = doc(
+            db,
+            "videos",
+            "video1",
+            "likes",
+            user.uid
+        );
+
+
+        // Check if this user already liked
+
+        try {
+
+            const likeSnapshot =
+                await getDoc(likeRef);
+
+
+            if (likeSnapshot.exists()) {
+
+                likeButton.classList.add("liked");
+
+                likeCount.textContent = "1";
+
+            } else {
+
+                likeCount.textContent = "0";
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Could not load like:",
+                error
+            );
+
+        }
+
+
+        // Like / Unlike
+
+        likeButton.addEventListener(
+            "click",
+            async function () {
+
+                try {
+
+                    const snapshot =
+                        await getDoc(likeRef);
+
+
+                    if (snapshot.exists()) {
+
+                        // UNLIKE
+
+                        await setDoc(
+                            likeRef,
+                            {
+                                liked: false
+                            }
+                        );
+
+                        likeButton.classList.remove(
+                            "liked"
+                        );
+
+                        likeCount.textContent = "0";
+
 
                     } else {
 
-                        likes = 0;
+                        // LIKE
 
-                        this.classList.remove("liked");
+                        await setDoc(
+                            likeRef,
+                            {
+                                liked: true,
+                                createdAt:
+                                    new Date()
+                            }
+                        );
+
+                        likeButton.classList.add(
+                            "liked"
+                        );
+
+                        likeCount.textContent = "1";
 
                     }
 
-                    this.querySelector("span")
-                        .textContent = likes;
+                } catch (error) {
+
+                    console.error(
+                        "Like error:",
+                        error
+                    );
 
                 }
-            );
 
-        }
+            }
+        );
 
-
-        // =========================
-        // COMMENT BOX
-        // =========================
-
-        const commentButton =
-            document.getElementById("commentVideo");
-
-        const commentBox =
-            document.getElementById("commentBox");
-
-        const closeComments =
-            document.getElementById("closeComments");
+    }
 
 
-        if (commentButton && commentBox) {
+    // =========================
+    // COMMENT BOX
+    // =========================
 
-            commentButton.addEventListener(
-                "click",
-                function () {
+    const commentButton =
+        document.getElementById("commentVideo");
 
-                    commentBox.classList.toggle("active");
+    const commentBox =
+        document.getElementById("commentBox");
+
+    const closeComments =
+        document.getElementById("closeComments");
+
+
+    if (commentButton && commentBox) {
+
+        commentButton.addEventListener(
+            "click",
+            function () {
+
+                commentBox.classList.toggle(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+
+    if (closeComments && commentBox) {
+
+        closeComments.addEventListener(
+            "click",
+            function () {
+
+                commentBox.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+
+    // =========================
+    // LOCAL COMMENT DISPLAY
+    // =========================
+
+    const commentInput =
+        document.getElementById("commentInput");
+
+    const sendComment =
+        document.getElementById("sendComment");
+
+    const commentsList =
+        document.getElementById("commentsList");
+
+
+    if (
+        sendComment &&
+        commentInput &&
+        commentsList
+    ) {
+
+        sendComment.addEventListener(
+            "click",
+            function () {
+
+                const text =
+                    commentInput.value.trim();
+
+
+                if (text === "") {
+                    return;
+                }
+
+
+                const comment =
+                    document.createElement("div");
+
+
+                comment.className =
+                    "comment-item";
+
+
+                const name =
+                    document.createElement("strong");
+
+                name.textContent =
+                    "Guest";
+
+
+                const message =
+                    document.createElement("p");
+
+                message.textContent =
+                    text;
+
+
+                comment.appendChild(name);
+
+                comment.appendChild(message);
+
+
+                const noComments =
+                    commentsList.querySelector(
+                        ".no-comments"
+                    );
+
+
+                if (noComments) {
+
+                    noComments.remove();
 
                 }
-            );
-
-        }
 
 
-        if (closeComments && commentBox) {
-
-            closeComments.addEventListener(
-                "click",
-                function () {
-
-                    commentBox.classList.remove("active");
-
-                }
-            );
-
-        }
-
-// =========================
-// SEND COMMENT
-// =========================
-
-const commentInput =
-    document.getElementById("commentInput");
-
-const sendComment =
-    document.getElementById("sendComment");
-
-const commentsList =
-    document.getElementById("commentsList");
+                commentsList.appendChild(
+                    comment
+                );
 
 
-if (sendComment && commentInput && commentsList) {
-
-    sendComment.addEventListener("click", function () {
-
-        const text = commentInput.value.trim();
-
-        if (text === "") {
-            return;
-        }
-
-        const comment = document.createElement("div");
-
-        comment.className = "comment-item";
-
-        comment.innerHTML = `
-            <strong>Guest</strong>
-            <p>${text}</p>
-        `;
-
-        const noComments =
-            commentsList.querySelector(".no-comments");
-
-        if (noComments) {
-            noComments.remove();
-        }
-
-        commentsList.appendChild(comment);
-
-        commentInput.value = "";
-
-        commentsList.scrollTop =
-            commentsList.scrollHeight;
-
-    });
-
-}
-        // =========================
-        // SHARE BUTTON
-        // =========================
-
-        const shareButton =
-            document.getElementById("shareVideo");
+                commentInput.value = "";
 
 
-        if (shareButton) {
+                commentsList.scrollTop =
+                    commentsList.scrollHeight;
 
-            shareButton.addEventListener(
-                "click",
-                async function () {
+            }
+        );
 
-                    try {
+    }
 
-                        await navigator.clipboard.writeText(
-                            window.location.href
-                        );
 
-                        alert(
-                            "Video page link copied!"
-                        );
+    // =========================
+    // SHARE
+    // =========================
 
-                    } catch (error) {
+    const shareButton =
+        document.getElementById("shareVideo");
 
-                        alert(
-                            "Copy this page link to share the memory."
-                        );
 
-                    }
+    if (shareButton) {
+
+        shareButton.addEventListener(
+            "click",
+            async function () {
+
+                try {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+                    alert(
+                        "Video page link copied!"
+                    );
+
+                } catch (error) {
+
+                    alert(
+                        "Copy this page link to share the memory."
+                    );
 
                 }
-            );
 
-        }
+            }
+        );
 
-    </script>
+    }
+
+</script>
 
 </body>
 
