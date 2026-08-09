@@ -662,26 +662,132 @@ if (
 
 
 /* =========================================
-   COMMENTS
+   FIRESTORE COMMENTS
 ========================================= */
 
 const commentInput =
-    document.getElementById(
-        "commentInput"
-    );
-
+    document.getElementById("commentInput");
 
 const sendComment =
-    document.getElementById(
-        "sendComment"
-    );
-
+    document.getElementById("sendComment");
 
 const commentsList =
-    document.getElementById(
-        "commentsList"
+    document.getElementById("commentsList");
+
+const commentCount =
+    document.getElementById("commentCount");
+
+
+const commentsRef =
+    collection(
+        db,
+        "videos",
+        "video1",
+        "comments"
     );
 
+
+/* =========================================
+   LOAD COMMENTS
+========================================= */
+
+function loadComments() {
+
+    const commentsQuery =
+        query(
+            commentsRef,
+            orderBy("createdAt", "asc")
+        );
+
+
+    onSnapshot(
+        commentsQuery,
+        (snapshot) => {
+
+            commentsList.innerHTML = "";
+
+
+            if (snapshot.empty) {
+
+                commentsList.innerHTML = `
+                    <p class="no-comments">
+                        No comments yet.
+                    </p>
+                `;
+
+                if (commentCount) {
+                    commentCount.textContent = "0";
+                }
+
+                return;
+            }
+
+
+            snapshot.forEach((commentDoc) => {
+
+                const data =
+                    commentDoc.data();
+
+
+                const comment =
+                    document.createElement("div");
+
+                comment.className =
+                    "comment-item";
+
+
+                const name =
+                    document.createElement("strong");
+
+                name.textContent =
+                    "Guest";
+
+
+                const message =
+                    document.createElement("p");
+
+                message.textContent =
+                    data.text || "";
+
+
+                comment.appendChild(name);
+
+                comment.appendChild(message);
+
+                commentsList.appendChild(comment);
+
+            });
+
+
+            if (commentCount) {
+
+                commentCount.textContent =
+                    snapshot.size;
+
+            }
+
+
+            commentsList.scrollTop =
+                commentsList.scrollHeight;
+
+        },
+
+        (error) => {
+
+            console.error(
+                "Error loading comments:",
+                error
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   SEND COMMENT
+========================================= */
 
 if (
     sendComment &&
@@ -691,7 +797,7 @@ if (
 
     sendComment.addEventListener(
         "click",
-        () => {
+        async () => {
 
             const text =
                 commentInput.value.trim();
@@ -704,70 +810,47 @@ if (
             }
 
 
-            const comment =
-                document.createElement(
-                    "div"
+            sendComment.disabled =
+                true;
+
+
+            try {
+
+                await addDoc(
+                    commentsRef,
+                    {
+                        text: text,
+                        createdAt:
+                            serverTimestamp()
+                    }
                 );
 
 
-            comment.className =
-                "comment-item";
+                commentInput.value = "";
 
 
-            const name =
-                document.createElement(
-                    "strong"
+                console.log(
+                    "💬 Comment saved!"
                 );
 
 
-            name.textContent =
-                "Guest";
+            } catch (error) {
 
-
-            const message =
-                document.createElement(
-                    "p"
+                console.error(
+                    "Comment error:",
+                    error
                 );
 
 
-            message.textContent =
-                text;
-
-
-            comment.appendChild(
-                name
-            );
-
-
-            comment.appendChild(
-                message
-            );
-
-
-            const noComments =
-                commentsList.querySelector(
-                    ".no-comments"
+                alert(
+                    "Unable to save comment. Please try again."
                 );
-
-
-            if (noComments) {
-
-                noComments.remove();
 
             }
 
 
-            commentsList.appendChild(
-                comment
-            );
-
-
-            commentInput.value =
-                "";
-
-
-            commentsList.scrollTop =
-                commentsList.scrollHeight;
+            sendComment.disabled =
+                false;
 
         }
     );
@@ -775,6 +858,15 @@ if (
 }
 
 
+/* =========================================
+   START COMMENT LISTENER
+========================================= */
+
+if (commentsList) {
+
+    loadComments();
+
+}
 
 /* =========================================
    SHARE
