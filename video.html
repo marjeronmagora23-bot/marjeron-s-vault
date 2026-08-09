@@ -341,125 +341,66 @@ signInAnonymously(auth)
 
 });
 
+                                
+                                 
 
 
-/* =========================================
-   LIKE SYSTEM
+                         
+                             /* =========================================
+   LIKE SYSTEM - FIXED
 ========================================= */
 
 async function initializeLike() {
 
-    const likeButton =
-        document.getElementById(
-            "likeVideo"
-        );
-
-    const likeCount =
-        document.getElementById(
-            "likeCount"
-        );
-
+    const likeButton = document.getElementById("likeVideo");
+    const likeCount = document.getElementById("likeCount");
 
     if (!likeButton || !likeCount) {
-
-        console.error(
-            "Like elements not found."
-        );
-
+        console.error("Like elements not found.");
         return;
-
     }
 
-
-    const user =
-        auth.currentUser;
-
+    const user = auth.currentUser;
 
     if (!user) {
-
-        console.error(
-            "No Firebase user."
-        );
-
+        console.error("Firebase user not found.");
         return;
-
     }
 
+    const videoRef = doc(
+        db,
+        "videos",
+        "video1"
+    );
 
-    /* VIDEO DOCUMENT */
-
-    const videoRef =
-        doc(
-            db,
-            "videos",
-            "video1"
-        );
-
-
-    /* USER LIKE DOCUMENT */
-
-    const userLikeRef =
-        doc(
-            db,
-            "videos",
-            "video1",
-            "likes",
-            user.uid
-        );
+    const userLikeRef = doc(
+        db,
+        "videos",
+        "video1",
+        "likes",
+        user.uid
+    );
 
 
-
-    /* =====================================
-       CREATE VIDEO DOCUMENT IF NEEDED
-    ===================================== */
+    // =========================================
+    // LOAD CURRENT DATA
+    // =========================================
 
     try {
 
-        const videoSnapshot =
-            await getDoc(videoRef);
+        const videoSnapshot = await getDoc(videoRef);
+        const userLikeSnapshot = await getDoc(userLikeRef);
 
+        let totalLikes = 0;
 
-        if (!videoSnapshot.exists()) {
+        if (videoSnapshot.exists()) {
 
-            await setDoc(
-                videoRef,
-                {
-                    likes: 0
-                }
-            );
+            totalLikes =
+                videoSnapshot.data().likes || 0;
 
         }
 
-    } catch (error) {
-
-        console.error(
-            "Could not initialize video:",
-            error
-        );
-
-    }
-
-
-
-    /* =====================================
-       LOAD CURRENT LIKE STATE
-    ===================================== */
-
-    try {
-
-        const videoSnapshot =
-            await getDoc(videoRef);
-
-        const userLikeSnapshot =
-            await getDoc(userLikeRef);
-
-
-        const data =
-            videoSnapshot.data();
-
-
-        likeCount.textContent =
-            data?.likes || 0;
+        likeCount.textContent = totalLikes;
 
 
         if (
@@ -467,73 +408,73 @@ async function initializeLike() {
             userLikeSnapshot.data().liked === true
         ) {
 
-            likeButton.classList.add(
-                "liked"
-            );
+            likeButton.classList.add("liked");
+
+        } else {
+
+            likeButton.classList.remove("liked");
 
         }
 
     } catch (error) {
 
         console.error(
-            "Could not load likes:",
+            "Error loading likes:",
             error
         );
 
     }
 
 
-
-    /* =====================================
-       LIKE / UNLIKE
-    ===================================== */
+    // =========================================
+    // LIKE / UNLIKE
+    // =========================================
 
     likeButton.addEventListener(
         "click",
-        async () => {
+        async function () {
+
+            if (likeButton.disabled) {
+                return;
+            }
 
             likeButton.disabled = true;
 
-
             try {
 
-                await runTransaction(
+                const result = await runTransaction(
                     db,
                     async (transaction) => {
 
                         const videoSnapshot =
-                            await transaction.get(
-                                videoRef
-                            );
-
+                            await transaction.get(videoRef);
 
                         const userLikeSnapshot =
-                            await transaction.get(
-                                userLikeRef
-                            );
+                            await transaction.get(userLikeRef);
 
 
                         let currentLikes = 0;
 
-
-                        if (
-                            videoSnapshot.exists()
-                        ) {
+                        if (videoSnapshot.exists()) {
 
                             currentLikes =
-                                videoSnapshot.data().likes || 0;
+                                Number(
+                                    videoSnapshot.data().likes || 0
+                                );
 
                         }
 
 
-                        /* =====================
-                           UNLIKE
-                        ===================== */
-
-                        if (
+                        const alreadyLiked =
                             userLikeSnapshot.exists() &&
-                            userLikeSnapshot.data().liked === true
-                        ) {
+                            userLikeSnapshot.data().liked === true;
+
+
+                        // =========================
+                        // UNLIKE
+                        // =========================
+
+                        if (alreadyLiked) {
 
                             const newLikes =
                                 Math.max(
@@ -542,10 +483,13 @@ async function initializeLike() {
                                 );
 
 
-                            transaction.update(
+                            transaction.set(
                                 videoRef,
                                 {
                                     likes: newLikes
+                                },
+                                {
+                                    merge: true
                                 }
                             );
 
@@ -554,69 +498,90 @@ async function initializeLike() {
                                 userLikeRef,
                                 {
                                     liked: false
+                                },
+                                {
+                                    merge: true
                                 }
                             );
 
 
-                            likeCount.textContent =
-                                newLikes;
-
-
-                            likeButton.classList.remove(
-                                "liked"
-                            );
-
-
-                            console.log(
-                                "💔 Unliked"
-                            );
+                            return {
+                                liked: false,
+                                likes: newLikes
+                            };
 
                         }
 
 
-                        /* =====================
-                           LIKE
-                        ===================== */
+                        // =========================
+                        // LIKE
+                        // =========================
 
-                        else {
-
-                            const newLikes =
-                                currentLikes + 1;
+                        const newLikes =
+                            currentLikes + 1;
 
 
-                            transaction.update(
-                                videoRef,
-                                {
-                                    likes: newLikes
-                                }
-                            );
+                        transaction.set(
+                            videoRef,
+                            {
+                                likes: newLikes
+                            },
+                            {
+                                merge: true
+                            }
+                        );
 
 
-                            transaction.set(
-                                userLikeRef,
-                                {
-                                    liked: true
-                                }
-                            );
+                        transaction.set(
+                            userLikeRef,
+                            {
+                                liked: true
+                            },
+                            {
+                                merge: true
+                            }
+                        );
 
 
-                            likeCount.textContent =
-                                newLikes;
-
-
-                            likeButton.classList.add(
-                                "liked"
-                            );
-
-
-                            console.log(
-                                "❤️ Liked"
-                            );
-
-                        }
+                        return {
+                            liked: true,
+                            likes: newLikes
+                        };
 
                     }
                 );
+
+
+                // =================================
+                // UPDATE SCREEN ONLY AFTER FIREBASE
+                // SUCCESSFULLY SAVES
+                // =================================
+
+                likeCount.textContent =
+                    result.likes;
+
+
+                if (result.liked) {
+
+                    likeButton.classList.add(
+                        "liked"
+                    );
+
+                } else {
+
+                    likeButton.classList.remove(
+                        "liked"
+                    );
+
+                }
+
+
+                console.log(
+                    result.liked
+                        ? "❤️ Like saved"
+                        : "💔 Unlike saved"
+                );
+
 
             } catch (error) {
 
@@ -627,7 +592,7 @@ async function initializeLike() {
 
 
                 alert(
-                    "Unable to save your like. Check Firestore Rules."
+                    "Unable to save your like. Please try again."
                 );
 
             }
@@ -639,13 +604,6 @@ async function initializeLike() {
     );
 
 }
-
-
-
-/* =========================================
-   COMMENT BOX
-========================================= */
-
 const commentButton =
     document.getElementById(
         "commentVideo"
